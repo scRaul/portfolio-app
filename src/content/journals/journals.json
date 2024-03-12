@@ -1,11 +1,10 @@
 {
     "journals":[
-    
     {
         "title":"Computer Networks",
         "thumbnail":"/network_thumbnail.png",
         "alt":"overview of the internet",
-        "slug":"/journals/networking",
+        "slug":"networking",
         "public":false
     }
 ]

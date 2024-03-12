@@ -1,0 +1,53 @@
+{
+    "title": "Key Concepts",
+    "content": [
+        {
+            "type": "def",
+            "text": "**Communication Node:** has the ability to send and receive messages"
+        },
+        {
+            "type": "def",
+            "text": "**Communication Channel:** A physical medium through an encoded  message is transmitted using physical signals."
+        },
+        {
+            "type": "def",
+            "text": "**Encoded message:** a message transformed from one medium/format to another medium/format"
+        },
+        {
+            "type": "inline-math",
+            "text": "**Binary bit ($\beta$) :** is the digital representation of a physical signal, 1 = active signal , 0 = inactive signal."
+        },
+        {
+            "type": "def",
+            "text": "**Packet:** the number of bytes ${B}$ required to encode a message"
+        },
+        {
+            "type": "def",
+            "text": "**Rate:** the number of bits a communication channel can transmit over a period of time."
+        },
+        {
+            "type": "def",
+            "text": "**Network:** is a system of interconnected communication channels connecting communication devices "
+        },
+        {
+            "type": "def",
+            "text": "**Bottleneck:** is where two or more communication channels merge into one."
+        },
+        {
+            "type": "def",
+            "text": "**Bandwidth:** The  "
+        },
+        {
+            "type": "def",
+            "text": "**Throughput:** The actual amount of successfully transferred data through a communication channel."
+        },
+        {
+            "type": "def",
+            "text": "**Multiplexing:** A policy used for trying to effieciently allow multiple signals to pass through a single channel."
+        },
+        {
+            "type": "def",
+            "text": "**Demultiplexing:**  A process used to extract the multiple signals from a communication channel."
+        }
+    ]
+}

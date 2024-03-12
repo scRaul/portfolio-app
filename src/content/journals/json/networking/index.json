@@ -1,0 +1,45 @@
+{
+    "title": "Computer Networks",
+    "sections": [
+        {
+            "title": "Key Concepts",
+            "index": "intro"
+        },
+        {
+            "title": "Hierarchical Tiers",
+            "index": "tiers"
+        },
+        {
+            "title": "OSI Model",
+            "index": "OSI"
+        },
+        {
+            "title": "Layer 1: Physical",
+            "index": "layer1"
+        },
+        {
+            "title": "Layer 2: Link",
+            "index": "layer2"
+        },
+        {
+            "title": "Layer 3: Network",
+            "index": "layer3"
+        },
+        {
+            "title": "Layer 4: Transport",
+            "index": "layer4"
+        },
+        {
+            "title": "Layer 5: Session",
+            "index": "layer5"
+        },
+        {
+            "title": "Layer 6: Presentation",
+            "index": "layer6"
+        },
+        {
+            "title": "Layer 7: Application",
+            "index": "layer7"
+        }
+    ]
+}

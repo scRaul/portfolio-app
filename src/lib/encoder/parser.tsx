@@ -9,5 +9,3 @@ function readFileContents(filePath: string) {
     return null;
   }
 }
-
-readFileContents("");

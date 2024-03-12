@@ -12,14 +12,14 @@ export interface JounralEntryProps {
 
 export default function JounralEntry(props: JounralEntryProps) {
   return (
-    <Link href={props.slug} className="p-2 cursor-pointer">
-      <H4 className="font-serif pb-5">{props.title}</H4>
+    <Link href={`/journals/${props.slug}`} className="p-2 cursor-pointer">
+      <H4 className="font-serif pb-5 w-[250px] mx-auto">{props.title}</H4>
       <Image
         src={props.thumbnail}
         alt={props.alt}
         width={250}
         height={200}
-        className="rounded-md mx-auto shadow-md"
+        className="rounded-md mx-auto shadow-md shadow-black"
       ></Image>
     </Link>
   );
