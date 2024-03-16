@@ -1,53 +1,1254 @@
 {
-    "title": "Key Concepts",
+    "metadata": {
+        "title": " Computer Networks",
+        "doc": " Journal",
+        "publish": " false",
+        "updated": " 3/12/2024"
+    },
+    "sections": [
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Key Concpets"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Network Topologies"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Hierarchal Network Tiers"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## OSI Model and IEEE"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 1: Physical Layer"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 2: Link Layer"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 3: Network Layer"
+                }
+            ]
+        }
+    ],
     "content": [
         {
-            "type": "def",
-            "text": "**Communication Node:** has the ability to send and receive messages"
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Key Concpets"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Communication Channel:** A physical medium through an encoded  message is transmitted using physical signals."
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Communication Node**: has the ability to send and receive messages  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Communication Channel**: A physical medium through an encoded  message is transmitted using physical signals."
+                },
+                {
+                    "style": "md",
+                    "data": "- **Encoded message**: a message transformed from one medium/format to another medium/format  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Binary bit ("
+                },
+                {
+                    "style": "math",
+                    "data": "{\\beta}"
+                },
+                {
+                    "style": "md",
+                    "data": ")**: is the digital representation of a physical signal, 1 = active signal , 0 = inactive signal. "
+                },
+                {
+                    "style": "math",
+                    "data": "{b}"
+                },
+                {
+                    "style": "md",
+                    "data": " represents a sequence of bits.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Packet**: consists of a header and payload, its size is the number of bytes "
+                },
+                {
+                    "style": "math",
+                    "data": "{B}"
+                },
+                {
+                    "style": "md",
+                    "data": " required to encode a message  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Rate**: the number of bits a communication channel can transmit over a period of time.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Network**: is a system of interconnected communication channels connecting communication devices  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Bandwidth**: A communication channel's theoritical max rate.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Throughput**: The actual amount of successfully transferred data through a communication channel.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Bottleneck**: The point at which multiple communication channels merge into one.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Multiplexing**: A technique used to try effeinciently send multiple signals past a bottneck point. E.g transmitting at defferent frequency ranges and or time slots  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Demultiplexing**:  A process used to extract the multiple signals from a communication channel.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Collision Domain**: A the domain of communication nodes that share a communication channel, at the shared channel, each communication node has the potential to interupt another node from transmitting a message.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Half Duplex Mode**: When a commication device can both send and recieve but is restricted to only doing one at a time.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Full Duplex Mode**: When a communcation device is allowed to both send and recieve at the same time."
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Encoded message:** a message transformed from one medium/format to another medium/format"
+            "type": " mathblock",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">**Bit Unit Scale**"
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{\\beta = 1 | 0}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{b = }"
+                },
+                {
+                    "style": "md",
+                    "data": " sequence of "
+                },
+                {
+                    "style": "math",
+                    "data": "{\\beta}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{Kb = 10^3 \\cdot b}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{Mb = 10^6 \\cdot b}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{Gb = 10^9 \\cdot b}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{Tb = 10^12 \\cdot b}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{Pb = 10^15 \\cdot b}"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                }
+            ]
         },
         {
-            "type": "inline-math",
-            "text": "**Binary bit ($\beta$) :** is the digital representation of a physical signal, 1 = active signal , 0 = inactive signal."
+            "type": " mathblock",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">**Binary Number System**"
+                },
+                {
+                    "style": "md",
+                    "data": ">leftmost system, digits to the left hold a heigher weight  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{\\beta_n 2^n + \\beta_{n-1} 2^n-1 + ... + \\beta_0 2^0}"
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Packet:** the number of bytes ${B}$ required to encode a message"
+            "type": " mathblock",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">**Memory Slot Unit**"
+                },
+                {
+                    "style": "md",
+                    "data": ">Byte "
+                },
+                {
+                    "style": "math",
+                    "data": "{B = 8b}"
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Rate:** the number of bits a communication channel can transmit over a period of time."
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Network Topologies"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Network:** is a system of interconnected communication channels connecting communication devices "
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Bus Line**: a single communication channel with multiple branching communcation channels, each branch connects a communication node to the same collision domain, thus they most operate in half duplex mode. And typically pass around a token to decide who can transmit  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Ring Line**: Take a bus line but rather than having branching channels, each communcation node is connected with two other nodes, (circular linked list)  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **FDDI Ring**: Use two rings using trasmitting opposite directions, in order to add redudnacy in case one ring fails.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Full Mesh**: Connect every node with everyother node, this allows for 1 on 1 communcation but requires "
+                },
+                {
+                    "style": "math",
+                    "data": "{\\frac{n(n-1)}{2}}"
+                },
+                {
+                    "style": "md",
+                    "data": " communcation channels  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Star Topology**: Use a centerailized communcication node in order to connect route all communcation through this device.  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Hub & Spoke**: connect two or more star topoglies(hubs) together in order to be able to reach evrey other node ( spokes) via the hubs  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Partial Mesh**: take the frequently used spokes and link them to other frequently used spokes in order to add redudacny in the case a hub fails, travel to every other node is still possible.  "
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Bottleneck:** is where two or more communication channels merge into one."
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Hierarchal Network Tiers"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Bandwidth:** The  "
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **PAN**: Personal Area Network"
+                },
+                {
+                    "style": "md",
+                    "data": "  - scale: connecting 2 nodes within a close proximity  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g: bluetooth and usb devices  "
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                },
+                {
+                    "style": "md",
+                    "data": "- **LAN**: Local Area Network  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - scale: all connected nodes within an enclosure  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g: Home network  "
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                },
+                {
+                    "style": "md",
+                    "data": "- **CAN**: Campuus Area Network  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - scale: connecting multiple LANs within an area"
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g: A college campus  "
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                },
+                {
+                    "style": "md",
+                    "data": "- **MAN**: Metropolitain Area Network  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - scale: connecting multiple LANS and CANS across a zone  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g: enterprise network"
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                },
+                {
+                    "style": "md",
+                    "data": "- **WAN**: Wide Area Network  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - scale: connecting mutiple regions,areas and enclosures across a region  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g: The Internet"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Throughput:** The actual amount of successfully transferred data through a communication channel."
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## OSI Model and IEEE"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Multiplexing:** A policy used for trying to effieciently allow multiple signals to pass through a single channel."
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Layer 7**: Application"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 6**: Presentation  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 5**: Session  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 4**: Trasnport  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 3**: Network  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 2**: Link"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 1**: Physical"
+                }
+            ]
         },
         {
-            "type": "def",
-            "text": "**Demultiplexing:**  A process used to extract the multiple signals from a communication channel."
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- e.g standards include: Ethernet (IEEE 802.3) and Wifi (IEEE 802.11)"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 1: Physical Layer"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Coaxial Cable**:"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Media**: Electrical signals over a copper rod"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Build**: plastic jacket wraps braided metalic shield wraps metal shied wraps insulator wraps the copper core  "
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Examples**:"
+                },
+                {
+                    "style": "md",
+                    "data": "    - RG6 cable line running from internet provider to homes"
+                },
+                {
+                    "style": "md",
+                    "data": "    - RG59 coax cables inside a home"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Twinaxial Cable**:"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Media**: Electrical signals over pairs of wires"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Build**: 8 wires twisted into pairs, more twist per inch ~ better protected from electrical magnetic interfeference.  "
+                },
+                {
+                    "style": "md",
+                    "data": "    - UTP: Unshielded (lower cost)"
+                },
+                {
+                    "style": "md",
+                    "data": "    - STP: shielded"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Exampls**:"
+                },
+                {
+                    "style": "md",
+                    "data": "    - RJ45 ethernet cable uses 2 / 4 pairs of wires"
+                },
+                {
+                    "style": "md",
+                    "data": "    - RJ11 phone line cable uses 1 / 4 pairs of wires"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Fiber Cable**:"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Media**: Light signals sent over glass rods"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Build**: plastic jacket wraps fiber glass wraps buffer coating wraps cladding wraps glass core"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Examples**:"
+                },
+                {
+                    "style": "md",
+                    "data": "    - SC \"Stick and Click\" connector req 2 pairs, 1 trasnmit 1 recieving"
+                },
+                {
+                    "style": "md",
+                    "data": "    - ST \"Stick and Twist\" connetor req 2 pairs"
+                },
+                {
+                    "style": "md",
+                    "data": "    - LC \"Love connector\"  connector combines 2 pairs into one form factor"
+                },
+                {
+                    "style": "md",
+                    "data": "    - MTRJ used to connect switches  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **Transciever**: conversts signals from one media to signals in other media"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **ISP**: Internet Service Provider, provides you a communication channel to the internet"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Demarcation Point**: Where the ISP connection ends and your network begins  "
+                },
+                {
+                    "style": "md",
+                    "data": "- **MDF**: Main distribution frame, the root of your network ( where your root switch is)"
+                },
+                {
+                    "style": "md",
+                    "data": "- **IDF**: Intermediata distribution frame, where other switches exists in your network"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Patch Pannel**: Exists at MDF connection to the switch are made through the patch pannel, cheap device to prevent wear and tear on switch ports + cable managment"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Punch Down Pannel**: Exists in MDF and connects **IDF's** to the **MDF** via the patch pannel"
+                }
+            ]
+        },
+        {
+            "type": " **Ethernet Cable Comparison**",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">| Category | Standard | Bandwidth | Distance | Frequency Range |"
+                },
+                {
+                    "style": "md",
+                    "data": ">|----------|----------|-----------|----------|----------|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 3    | 10 BASE-T| 10 Mbps    | 100 meters| 16 Mhz |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 5    | 100 BASE-TX|100 Mbps  | 100 meteres| 100 Mhz|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 5e   | 1000 BASE-T| 1000 Mbps | 100 meters| 100 Mhz |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 6    | 1000 / 10G Base-T | 1000 Mbps / 10 Gbps | 100 meters / 55 meters| 250 Mhz|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 6a   | 10G BASE-T | 10 Gbps | 100 meters  | 500 Mhz |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 7    | 10G BASE-T | 10 Gbps | 100 meters | 600 Mhz |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| CAT 8    | 40G BASE-T | 40 Gbps | 30 meters | 2000 Mhz |"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 2: Link Layer"
+                }
+            ]
+        },
+        {
+            "type": " table",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">| Preamble | Destination MAC | Source MAC | Type | payload | FCS|"
+                },
+                {
+                    "style": "md",
+                    "data": ">|----------|-----------------|------------|------|---------|----|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| 8 Bytes  |     6 Bytes     | 6 Bytes    | 2 Bytes | 46-1500 Bytes| 4 Bytes|"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Deterministic**: Each node in a collision domain knows when its their turn to transmit,"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Protocols**:"
+                },
+                {
+                    "style": "md",
+                    "data": "    - Time Divison Multiple Access: Multiplex by allocating time to each node"
+                },
+                {
+                    "style": "md",
+                    "data": "    - Stat DMA: Multiplex by allocating time but based on node usage"
+                },
+                {
+                    "style": "md",
+                    "data": "    - Frequency DMA: Multiplex by allocating a frequency range to nodes"
+                },
+                {
+                    "style": "md",
+                    "data": ""
+                },
+                {
+                    "style": "md",
+                    "data": "- **Contention**: Each node listens for a gap in order to start transmitting ( what the interent uses )"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Protocols**:"
+                },
+                {
+                    "style": "md",
+                    "data": "    - **Carrier Sense Multiple Access/Collision Detection CSMA**:"
+                },
+                {
+                    "style": "md",
+                    "data": "      - When their is a gap attempt to transmit, if collision occurs, backoff and try again"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Space**: "
+                },
+                {
+                    "style": "math",
+                    "data": "{2^{48} }"
+                },
+                {
+                    "style": "md",
+                    "data": " possible MAC addresses, IEEE assigns the first 24 bits to a manufacturer and manufacturere assigns last 24 to their cards"
+                },
+                {
+                    "style": "md",
+                    "data": "- **notation**: the 48 bits are respresented by 6 pairs of hexadecimal numbers, each pair represents a 8 bits ( 1 Byte )"
+                },
+                {
+                    "style": "md",
+                    "data": "  - e.g  00:1A:2B:3C:4D:5E"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Network Nodes**: Any device with a network interface card"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **protocol**: CSMA/CD"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Hub**: connects nodes into the same collison domain."
+                },
+                {
+                    "style": "md",
+                    "data": "- **Switch**:Allows for full duplex communication between nodes and switches ports"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **protocol**:Addess Resolution Protocol (ARP), maps IP (layer 3 addresses) to MAC addresses"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Flow control**: regulate the rate of transmission between devices to avoid congestion"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Error Handling**: Detect and correct error"
+                },
+                {
+                    "style": "md",
+                    "data": "  - parity checks"
+                },
+                {
+                    "style": "md",
+                    "data": "  - checksum"
+                },
+                {
+                    "style": "md",
+                    "data": "  - cyclic redundacny chec  k"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Link Aggregation(IEEE 802.3ad)**: combine multiple connection into 1 single logical connection to prevent congestion"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Power over Ethernet(PoE 802.3af PoE+ 802.3at)**: supply electrical power to a device"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Spanning Tree(802.1d)**: used to prevent looping in a network"
+                },
+                {
+                    "style": "md",
+                    "data": "- **VLAN Trunking**:Multiple vlans over the same channel"
+                },
+                {
+                    "style": "md",
+                    "data": "- **MAC/IP Filtering**: allow or deny based on mac or IP address"
+                }
+            ]
+        },
+        {
+            "type": "heading",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "## Layer 3: Network Layer"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **FIFO**: First in First Out, packets are setn out in the same order in which they are recieved."
+                },
+                {
+                    "style": "md",
+                    "data": "- **Priority Queue**: Packets are sent out depending on some weight system."
+                },
+                {
+                    "style": "md",
+                    "data": "- **Round Robin**: Packet Queues are allocated cyclic slot to send out one packet."
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **IPV4**: "
+                },
+                {
+                    "style": "math",
+                    "data": "{ 2^{32} }"
+                },
+                {
+                    "style": "md",
+                    "data": " addressing space, x number of bits are used as a network id and y number of bits are used to identify a host"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **notation**: doted decimal, 4 Bytes (represented in decimal form) are seperated by dots."
+                },
+                {
+                    "style": "md",
+                    "data": "    - e.g: 192.168.1.4 -> 11000000 10101000 00000001 00000100"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **Subnet Mask**: is a 32 bit number used to define the network bits vs the hosts bits"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **CIDR Notation**: rather than passing around both a IPV4 and subnet mask around, short hand < IPV4 address>/<# of network bits>"
+                },
+                {
+                    "style": "md",
+                    "data": "    - e.g: 192.168.1.4/24"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **IPV4 Class Tpes**: IPV4 address fall under one of 5 classes, this is dependent on their first byte and defualt subnet mask"
+                },
+                {
+                    "style": "md",
+                    "data": "    - e.g Class E: reserved IP starting byte betweem 240-255 with a no default mask"
+                },
+                {
+                    "style": "md",
+                    "data": "      - reserved for expirmental research"
+                }
+            ]
+        },
+        {
+            "type": " table",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "> **Public IPV4 class table**"
+                },
+                {
+                    "style": "md",
+                    "data": ">|Class | First byte range | default mask | Possible host|"
+                },
+                {
+                    "style": "md",
+                    "data": ">|------|------------------|--------------|--------------|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| A    |  1 - 127         | 255.0.0.0    | 16.7 million |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| B    | 128 - 191        | 255.255.0.0  | 65,536       |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| C    | 192 - 223        | 255.255.255.0| 256          |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| D    | 225 - 239        |   null       |              |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| E    | 240 - 255        |  null        | 268 million  |"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **IPV6**: "
+                },
+                {
+                    "style": "math",
+                    "data": "{ 2^{128} }"
+                },
+                {
+                    "style": "md",
+                    "data": " addressing space, can map multiple IP's per NIC"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **notation**: 32 hex numbers,grouped into 8 sets of 4."
+                },
+                {
+                    "style": "md",
+                    "data": "    - e.g: 2018:8888:0000:0000:0000:0000:48AB:54AE"
+                },
+                {
+                    "style": "md",
+                    "data": "      - shorthand: 2018:8::48AB:54AE"
+                },
+                {
+                    "style": "md",
+                    "data": "        - if a group has the name number, you can write 1 number instead"
+                },
+                {
+                    "style": "md",
+                    "data": "        - if a series of groups are 0's you can close the series, :: once."
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Routers**: connect multiple networks together and in charge of forwarding a message to the correct network"
+                },
+                {
+                    "style": "md",
+                    "data": "  - **protocols**"
+                },
+                {
+                    "style": "md",
+                    "data": "    - **OSPF**: Open Shortest Path First maintain a topology of the network based on cost to each link within a network"
+                },
+                {
+                    "style": "md",
+                    "data": "    - **BGP**: Border Gateway protocol, exchange information with other routers in order to maintain reachablilty information to other networks"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Layer 3 Switches**: Combines a layer 2 switch with a router"
+                },
+                {
+                    "style": "md",
+                    "data": "- **WAP**: Wireless access point, provides wireless connection to a network"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Class Inter-Domain**:allows for partitioning of a network by creating a subnet mask from barrowed host bits."
+                },
+                {
+                    "style": "md",
+                    "data": "- **Private vs Private IP**: public is addressable by node over the inernet, private is only addressable for any node within a LAN."
+                }
+            ]
+        },
+        {
+            "type": " table",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "> **Private IP**"
+                },
+                {
+                    "style": "md",
+                    "data": ">| Class | Range | Possible Hosts |"
+                },
+                {
+                    "style": "md",
+                    "data": ">|-------|-------|----------------|"
+                },
+                {
+                    "style": "md",
+                    "data": ">| A     | 10    | 16.7 million |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| B     | 172.16 - 172.31 | 1.05 million |"
+                },
+                {
+                    "style": "md",
+                    "data": ">| C     | 192.168 | 65,536  |"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **NAT**: Network address translation, allows private IP to share a public IP"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Loopback Address**: ( 127.0.0.1) aka localhost. used for creating local calls such as for testing and troubleshooting"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Fully Configured**: Network card has the following components:"
+                },
+                {
+                    "style": "md",
+                    "data": "  - IP address"
+                },
+                {
+                    "style": "md",
+                    "data": "  - subnet mask"
+                },
+                {
+                    "style": "md",
+                    "data": "  - DHCP servers address"
+                },
+                {
+                    "style": "md",
+                    "data": "  - Default gateway"
+                },
+                {
+                    "style": "md",
+                    "data": "- **Automatic Private IP**: (169.254.0.0) when NIC isnt connected to any network."
+                },
+                {
+                    "style": "md",
+                    "data": "- **DHCP**: Dynamic Host Configuration Protocol runs on a server ( usually on the router), and is in charge for auto fully configuring devices."
+                },
+                {
+                    "style": "md",
+                    "data": "- **DNS**: Domain Name System core functionality is to translate ip address to domain names. If a server can't find a tranlation, it keeps moving up the chain of routers until a tranlation is found."
+                }
+            ]
+        },
+        {
+            "type": " table",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "> **Domain Name http: //www.my-domain-name .com/pathTofile**"
+                },
+                {
+                    "style": "md",
+                    "data": "> |http:// | www. | my-domain-name|.com | /path to file |"
+                },
+                {
+                    "style": "md",
+                    "data": "> |--------|------|----------------|----|---------------|"
+                },
+                {
+                    "style": "md",
+                    "data": "> | service| subdomain|root domain | top level domain|  |"
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "text": [
+                {
+                    "style": "md",
+                    "data": "- **Unicast**: from one node to another"
+                },
+                {
+                    "style": "md",
+                    "data": "- **multicast**:from one node to a group"
+                },
+                {
+                    "style": "md",
+                    "data": "- **broadcast**: frome one node to everynode in network"
+                }
+            ]
+        },
+        {
+            "type": " mathblock",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">**Subnetting**  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{ subnets = 2^s }"
+                },
+                {
+                    "style": "md",
+                    "data": " where s is the number of barrowed bits  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{CIDR = 32 - \\lceil log_{2}(users+2) \\rceil }"
+                },
+                {
+                    "style": "md",
+                    "data": "  "
+                },
+                {
+                    "style": "md",
+                    "data": ">"
+                },
+                {
+                    "style": "math",
+                    "data": "{ assignable IP = 2^h -2 }"
+                },
+                {
+                    "style": "md",
+                    "data": " where h is the number host bits"
+                },
+                {
+                    "style": "md",
+                    "data": ">> first IP address is used as the network ID  "
+                },
+                {
+                    "style": "md",
+                    "data": ">> last IP is used as a broadcast ID, for every subnet"
+                }
+            ]
+        },
+        {
+            "type": " table",
+            "text": [
+                {
+                    "style": "md",
+                    "data": ">**Subnetting ref table**"
+                },
+                {
+                    "style": "md",
+                    "data": "> | CIDR | subnets |total IPS per sub net|"
+                },
+                {
+                    "style": "md",
+                    "data": "> |:----:|:-----:| :------:|"
+                },
+                {
+                    "style": "md",
+                    "data": "> |  /24 |    1    |    256  |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /25  |    2    |    128  |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /26  |    4    |    64   |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /27  |    8    |    32   |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /28  |    16   |    16   |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /29  |    32   |   8     |"
+                },
+                {
+                    "style": "md",
+                    "data": "> | /30  |    64   |   4     |"
+                }
+            ]
         }
     ]
 }
