@@ -1,10 +1,10 @@
 
-export interface IJournalContent {
-  type: string;
-  text: string;
+export type TTextData = {
+  style: string,
+  data: string
 }
 
 export interface IJournalContent {
-  title: string;
-  index: string;
+  type: string;
+  text: TTextData[];
 }

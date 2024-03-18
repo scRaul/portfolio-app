@@ -14,7 +14,7 @@ export default async function JounralEntryLayout({
   const data = await JSON.parse(json);
   return (
     <div className="flex-1 flex">
-      <JournalIndex title={data.title} sections={data.sections}></JournalIndex>
+      {/* <JournalIndex title={data.title} sections={data.sections}></JournalIndex> */}
       <main className="p-2i flex-grow">{children}</main>
     </div>
   );
