@@ -2,22 +2,25 @@ import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 import {
   MdBlock,
-  MdData,
   MdNode,
+  MdValue,
   getMarkdownBlocks,
-} from "@/lib/encoder/parser";
+} from "@/lib/encoder/parser2";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { H2, H3, H4, H5, H6 } from "@/components/Text";
 import { randomUUID } from "crypto";
+import CodeBlock from "@/components/CodeBlock";
 
 export default async function JounralPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const blocks = await getMarkdownBlocks("src/content/journals/md/math.md");
-  const reactNodes = getReactNodes(blocks);
+  const blocks = await getMarkdownBlocks(
+    "src/content/journals/md/operatingsystems.md"
+  );
+  const reactNodes: ReactNode[] = blocks.map(parseBlock);
   return (
     <article className="pt-10 pl-2">
       <header className=""></header>
@@ -28,135 +31,162 @@ export default async function JounralPage({
     </article>
   );
 }
-function getReactNodes(blocks: MdBlock[]): ReactNode[] {
-  var reactNode: ReactNode[] = [];
-  blocks.forEach((block, index) => {
-    const key = "b-" + index;
-    reactNode.push(
-      <WrapNodes block={[block.block, key]} key={key}>
-        {block.node}
-      </WrapNodes>
-    );
-  });
-  return reactNode;
-}
-
-function WrapNodes({
-  children,
-  block,
-}: {
-  children: MdNode[];
-  block: [string, string];
-}) {
-  if (children.length <= 0) return;
-  const nodes: ReactNode[] = [];
-  children.forEach((child, index) => {
-    nodes.push(
-      <WrapNode key={block[1] + index} node={child} id={block[1]}></WrapNode>
-    );
-  });
-  if (block[0].includes("heading")) {
-    const size = block[0][block[0].length - 1];
-    if (size == "2") {
-      return <H2 className="font-bold">{nodes}</H2>;
-    }
-    if (size == "3") {
-      return <H3 className="font-bold">{nodes}</H3>;
-    }
-    if (size == "4") {
-      return <H4 className="font-bold">{nodes}</H4>;
-    }
-    if (size == "5") {
-      return <H5 className="font-bold">{nodes}</H5>;
-    }
-    if (size == "6") {
-      return <H6 className="font-bold">{nodes}</H6>;
-    }
-  }
-  if (block[0] == "paragraph") {
-    return <p>{nodes}</p>;
-  }
-  if (block[0] == "mblock") {
-    const key = block[1] + "-mb";
-    return <BlockMath key={key}>{children[0].data[0].data}</BlockMath>;
-  }
-  if (block[0] == "ol" || block[0] == "ul") {
-    const key = block[1] + "list";
-    const className = block[0] == "ol" ? "list-decimal" : "list-disc";
+function parseBlock(block: MdBlock): ReactNode {
+  if (block.type == "table") {
+    const [th, tr] = parseTable(block);
     return (
-      <ul className={className} key={key}>
-        {nodes}
-      </ul>
-    );
-  }
-  if (block[0] == "table") {
-    const key = block[1] + "-tb";
-    var table: ReactNode[][] = [];
-    var tableRow: ReactNode[] = [];
-    children.forEach((node) => {
-      if (node.style == "tableRow") {
-        if (tableRow.length > 0) {
-          table.push(tableRow);
-        }
-        tableRow = [];
-      }
-      tableRow.push(<WrapNode node={node} key={key} id={key} />);
-    });
-    table.push(tableRow);
-    return (
-      <table className="border border-collapse border-black" key={key}>
-        {table.map((item, index) => (
-          <tr key={key + "-tr-" + index} className="border border-black">
-            {item}
-          </tr>
-        ))}
+      <table key={"table" + block.index}>
+        <thead>{th}</thead>
+        <tbody>{tr}</tbody>
       </table>
     );
   }
-}
-function WrapNode({ node, id }: { node: MdNode; id: string }) {
-  if (node.style == "image") {
-    const src = node.data[0].data.split("/public")[1];
-    return <Image src={src} alt={node.data[2].data} width={500} height={500} />;
-  }
-  var className = "";
-  if (node.style == "emphasis") className += "italic";
-  if (node.style == "strong") className += "font-bold";
-  var nodes: ReactNode[] = [];
-  node.data.forEach((datum, index) => {
-    nodes.push(<WrapData key={index} data={datum} className={className} />);
-  });
-  if (node.style == "tableRow" || node.style == "tableCell") {
+  if (block.type == "code") {
     return (
-      <td
-        key={`td-${id}-${randomUUID()}`}
-        className="border border-black text-center p-2"
-      >
-        {nodes}
-      </td>
+      <CodeBlock
+        code={block.nodes[0].type}
+        language={block.style}
+        key={"code-" + block.index}
+      ></CodeBlock>
     );
   }
-  if (node.style.includes("li")) {
-    const m = parseInt(node.style.split("-")[1]);
+  var reactNodes: ReactNode[] = [];
+  block.nodes.forEach((node) => {
+    reactNodes.push(parseNode(node));
+  });
+  if (block.type == "heading") {
+    switch (block.style) {
+      case "2":
+        return (
+          <H2 className="font-semibold" key={"h-" + block.index}>
+            {reactNodes}
+          </H2>
+        );
+      case "3":
+        return (
+          <H3 className="font-semibold" key={"h-" + block.index}>
+            {reactNodes}
+          </H3>
+        );
+      case "4":
+        return (
+          <H4 className="font-semibold" key={"h-" + block.index}>
+            {reactNodes}
+          </H4>
+        );
+      case "5":
+        return (
+          <H5 className="font-semibold" key={"h-" + block.index}>
+            {reactNodes}
+          </H5>
+        );
+      case "6":
+        return (
+          <H6 className="font-semibold" key={"h-" + block.index}>
+            {reactNodes}
+          </H6>
+        );
+      default:
+        return <p key={"p-" + block.index}>{reactNodes}</p>;
+    }
+  }
+  if (block.type == "paragraph") {
+    return reactNodes;
+  }
+  if (block.type == "list") {
+    if (block.style == "ol") {
+      return (
+        <ol className="list-decimal list-inside" key={"ol-" + block.index}>
+          {reactNodes}
+        </ol>
+      );
+    } else {
+      return (
+        <ul className="list-disc list-inside" key={"ol-" + block.index}>
+          {reactNodes}
+        </ul>
+      );
+    }
+  }
+  return reactNodes;
+}
+
+function parseNode(node: MdNode): ReactNode {
+  if (node.type == "image") {
+    const url = node.values[0].value.split("/public")[1];
+    const title = node.values[1].value;
+    const alt = node.values[2].value;
     return (
-      <li
-        key={`li-${id}-${randomUUID()}`}
-        className={className}
-        style={{ marginLeft: m * 10 + "px" }}
-      >
-        {nodes}
+      <div key={`img-${randomUUID()}`}>
+        <Image src={url} alt={alt} width={500} height={500} />
+        <p className="text-blue-800 ">{title}</p>
+      </div>
+    );
+  }
+  var reactNodes: ReactNode[] = [];
+  node.values.forEach((value) => {
+    reactNodes.push(parseValue(value));
+  });
+
+  if (node.type[0] == "l") {
+    const m = parseInt(node.type.split("-")[1]);
+    return (
+      <li style={{ marginLeft: m * 10 + "px" }} key={`li-${randomUUID()}`}>
+        {reactNodes}
       </li>
     );
   }
-  return <span>{nodes}</span>;
+  return reactNodes;
 }
-function WrapData({ data, className }: { data: MdData; className: string }) {
-  if (data.type === "text") {
+function parseValue(value: MdValue): ReactNode {
+  if (value.style == "mathblock") {
+    return <BlockMath>{value.value}</BlockMath>;
+  } else if (value.style == "math") {
+    return <InlineMath>{value.value}</InlineMath>;
+  } else {
+    var className = "pr-2";
+    if (value.style == "emphasis") className += "italic";
+    else if (value.style == "strong") className += "font-extrabold";
     return (
-      <span key={data.data} className={className}>
-        {data.data}
+      <span className={className} key={`sp-${randomUUID()}`}>
+        {value.value}
       </span>
     );
   }
-  return <InlineMath key={data.data}>{data.data}</InlineMath>;
+}
+
+function parseHeader(block: MdBlock) {}
+
+function parseTable(block: MdBlock) {
+  const rows: number[] = [];
+  for (let i = 1; i < block.nodes.length; i++) {
+    if (block.nodes[i].type == "tr") {
+      rows.push(i);
+    }
+  }
+  var th: ReactNode[] = [];
+  for (let i = 1; i < rows[0]; i++) {
+    th.push(
+      <th className="border border-black">{parseNode(block.nodes[i])}</th>
+    );
+  }
+  var tr: ReactNode[] = [];
+  var td: ReactNode[] = [];
+  var r = 0;
+  for (let r = 0; r < rows.length - 1; r++) {
+    for (let c = rows[r] + 1; c < rows[r + 1]; c++) {
+      td.push(
+        <td className="border border-black p-1">{parseNode(block.nodes[c])}</td>
+      );
+    }
+    tr.push(<tr>{td}</tr>);
+    td = [];
+  }
+  for (let c = rows[rows.length - 1] + 1; c < block.nodes.length; c++) {
+    td.push(
+      <td className="border border-black p-1">{parseNode(block.nodes[c])}</td>
+    );
+  }
+  tr.push(<tr>{td}</tr>);
+  return [th, tr];
 }

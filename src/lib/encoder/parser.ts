@@ -93,7 +93,6 @@ function createBlock(parents: string[], data: string[]): MdBlock {
   var block: MdBlock = {block: parents[0], node: []};
   var pp = parents.length - 1;
   var dp = data.length - 1;
-  var nodes: MdNode[] = [];
   while (dp >= 0) {
     var node: MdNode = {style: parents[pp], data: []};
     if (parents[pp] == 'image') {

@@ -1,25 +1,33 @@
 ---
 title: test
-
+createdAt: 03/18/2024
 ---
+```cpp
+const string str = "Hello Wor;d!";
+```
 
-## Heading 2
+## Headinging **Bold String**: subtitle
 
-### Heading 3
+### Heading *Italic String*: subtitle
 
-#### Heading 4
+#### Heading ${F = ma}$:subtitle
 
-##### Heading 5
+##### Heading 5:subtitle
 
-###### Heading 6
+###### Heading 6:subtitle
 
 this is some regular text  
 this is some **Bold** text  
-this is some math formula: ${E = mc^2}$
+this is some *italic* text  
+this is some math formula: ${E = mc^2}$  
 
-1. item 1
-2. item 2
-3. item 3
+[google.com](http:google.com)
+
+![alt text](/public/comm_channel.png "title")
+
+1. item is **bold**
+2. item is *italic*
+3. item is ${x=5}$
 
 - li 1
   - li 1-1
@@ -36,7 +44,9 @@ this is some math formula: ${E = mc^2}$
 
 | col 1 | col 2 | col 3|
 |-------|-------|------|
-| adsbfh|alkdfl|asdlfha|
+| this is **bold**|this is *alkdfl*|this is ${mc^2}$|
+| this is **bold**|this is *alkdfl*|this is ${mc^2}$|
+| this is **bold**|this is *alkdfl*|this is ${mc^2}$|
 
 $${
 \begin{bmatrix}
@@ -47,3 +57,10 @@ d & e & f
 
 > ${a = f}$
 > ${b = 2}$
+---
+>$${
+>\begin{pmatrix}
+> a & c \\
+> d & e
+>\end{pmatrix}
+>}$$

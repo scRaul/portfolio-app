@@ -15,7 +15,7 @@ export default async function JounralEntryLayout({
   return (
     <div className="flex-1 flex">
       {/* <JournalIndex title={data.title} sections={data.sections}></JournalIndex> */}
-      <main className="p-2i flex-grow">{children}</main>
+      <main className="p-2 flex-grow">{children}</main>
     </div>
   );
 }
