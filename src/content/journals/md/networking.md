@@ -1,17 +1,17 @@
 ---
-title: Testing
+title: Computer Networks
 createdAt: 03/18/2024
 updatedAt: 03/19/2024
 author: Raul Ramirez
-hero: public/comm_channel.png
+hero: /public/comm_channel.png
 ---
 ## Key Concpets
 
 - **Communication Node**: has the ability to send and receive messages  
 - **Communication Channel**: A physical medium through an encoded  message is transmitted using physical signals.
 - **Encoded message**: a message transformed from one medium/format to another medium/format  
-- **Binary bit**:(${\beta}$) is the digital representation of a physical signal, 1 = active signal , 0 = inactive signal. ${b}$ represents a sequence of bits.  
-- **Packet**: consists of a header and payload, its size is the number of bytes ${B}$ required to encode a message  
+- **Binary bit**:($\beta$) is the digital representation of a physical signal, 1 = active signal , 0 = inactive signal. $b$ represents a sequence of bits.  
+- **Packet**: consists of a header and payload, its size is the number of bytes $B$ required to encode a message  
 - **Rate**: the number of bits a communication channel can transmit over a period of time.  
 - **Network**: is a system of interconnected communication channels connecting communication devices  
 - **Bandwidth**: A communication channel's theoritical max rate.  
@@ -23,9 +23,7 @@ hero: public/comm_channel.png
 - **Half Duplex Mode**: When a commication device can both send and recieve but is restricted to only doing one at a time.  
 - **Full Duplex Mode**: When a communcation device is allowed to both send and recieve at the same time.
 
----
-
-$${
+$$
 \begin{align*}
 \textbf{Bit unit table}\\
 \beta it &= \set{1,0} \\
@@ -36,30 +34,24 @@ Gb & = 10^9 \cdot b \\
 Tb & = 10^{12} \cdot b \\
 Pb & = 10^{15}  \cdot b
 \end{align*}
-}$$
+$$
 
----
-> mathblock  
->**Binary Number System**  
->leftmost system, digits to the left hold a heigher weight  
->${\beta_n 2^n + \beta_{n-1} 2^n-1 + ... + \beta_0 2^0}$
----
-> mathblock  
->**Memory Slot Unit**  
->Byte ${B = 8b}$
----
+**Binary Number System**  
+leftmost system, digits to the left hold a heigher weight  
+$\beta_n 2^n + \beta_{n-1} 2^n-1 + ... + \beta_0 2^0$
+
+**Memory Slot Unit**  
+Byte $B = 8b$
 
 ## Network Topologies  
 
 - **Bus Line**: a single communication channel with multiple branching communcation channels, each branch connects a communication node to the same collision domain, thus they most operate in half duplex mode. And typically pass around a token to decide who can transmit  
 - **Ring Line**: Take a bus line but rather than having branching channels, each communcation node is connected with two other nodes, (circular linked list)  
 - **FDDI Ring**: Use two rings using trasmitting opposite directions, in order to add redudnacy in case one ring fails.  
-- **Full Mesh**: Connect every node with everyother node, this allows for 1 on 1 communcation but requires ${\frac{n(n-1)}{2}}$ communcation channels  
+- **Full Mesh**: Connect every node with everyother node, this allows for 1 on 1 communcation but requires $\frac{n(n-1)}{2}$ communcation channels  
 - **Star Topology**: Use a centerailized communcication node in order to connect route all communcation through this device.  
 - **Hub & Spoke**: connect two or more star topoglies(hubs) together in order to be able to reach evrey other node ( spokes) via the hubs  
 - **Partial Mesh**: take the frequently used spokes and link them to other frequently used spokes in order to add redudacny in the case a hub fails, travel to every other node is still possible.  
-
----
 
 ## Hierarchal Network Tiers
 
@@ -83,8 +75,6 @@ Pb & = 10^{15}  \cdot b
   - scale: connecting mutiple regions,areas and enclosures across a region  
   - e.g: The Internet
 
----
-
 ## OSI Model and IEEE
 
 **Open Systems Intercommuncation Model**: is a conceptual framework used to standardize and facilitate the repsosibilites of network devices and applications, it does so by spreading the responsibilties across 7 layers.
@@ -100,8 +90,6 @@ Pb & = 10^{15}  \cdot b
 **Institute of Electrical and Electronics Engineers**: Develop and maintain standards of networking technologies ensuring interopablitly and compatitbiltiy among different devices and vendors.  
 
 - e.g standards include: Ethernet (IEEE 802.3) and Wifi (IEEE 802.11)
-
----
 
 ## Layer 1: Physical Layer
 
@@ -142,29 +130,25 @@ Pb & = 10^{15}  \cdot b
 - **Patch Pannel**: Exists at MDF connection to the switch are made through the patch pannel, cheap device to prevent wear and tear on switch ports + cable managment
 - **Punch Down Pannel**: Exists in MDF and connects **IDF's** to the **MDF** via the patch pannel
 
----
-> **Ethernet Cable Comparison**
->| Category | Standard | Bandwidth | Distance | Frequency Range |
->|----------|----------|-----------|----------|----------|
->| CAT 3    | 10 BASE-T| 10 Mbps    | 100 meters| 16 Mhz |
->| CAT 5    | 100 BASE-TX|100 Mbps  | 100 meteres| 100 Mhz|
->| CAT 5e   | 1000 BASE-T| 1000 Mbps | 100 meters| 100 Mhz |
->| CAT 6    | 1000 / 10G Base-T | 1000 Mbps / 10 Gbps | 100 meters / 55 meters| 250 Mhz|
->| CAT 6a   | 10G BASE-T | 10 Gbps | 100 meters  | 500 Mhz |
->| CAT 7    | 10G BASE-T | 10 Gbps | 100 meters | 600 Mhz |
->| CAT 8    | 40G BASE-T | 40 Gbps | 30 meters | 2000 Mhz |
----
+ **Ethernet Cable Comparison**:
+| Category | Standard | Bandwidth | Distance | Frequency Range |
+|-|-|--|-|-|
+| CAT 3    | 10 BASE-T| 10 Mbps    | 100 meters| 16 Mhz |
+| CAT 5    | 100 BASE-TX|100 Mbps  | 100 meteres| 100 Mhz|
+| CAT 5e   | 1000 BASE-T| 1000 Mbps | 100 meters| 100 Mhz |
+| CAT 6    | 1000 / 10G Base-T | 1000 Mbps / 10 Gbps | 100 meters / 55 meters| 250 Mhz|
+| CAT 6a   | 10G BASE-T | 10 Gbps | 100 meters  | 500 Mhz |
+| CAT 7    | 10G BASE-T | 10 Gbps | 100 meters | 600 Mhz |
+| CAT 8    | 40G BASE-T | 40 Gbps | 30 meters | 2000 Mhz |
 
 ## Layer 2: Link Layer
 
 **Packet** Frame (payload encapsulates Datagram from layer 3)
 
----
-> table
->| Preamble | Destination MAC | Source MAC | Type | payload | FCS|
->|----------|-----------------|------------|------|---------|----|
->| 8 Bytes  |     6 Bytes     | 6 Bytes    | 2 Bytes | 46-1500 Bytes| 4 Bytes|
----
+ table
+| Preamble | Destination MAC | Source MAC | Type | payload | FCS|
+|-|--||||-|
+| 8 Bytes  |     6 Bytes     | 6 Bytes    | 2 Bytes | 46-1500 Bytes| 4 Bytes|
 
 **Policy**:
 
@@ -182,7 +166,7 @@ Pb & = 10^{15}  \cdot b
 **Interface**:Network Interface Card (NIC) exists at node and made up of a controller to interact with computer and a transmitter to send out signals  
 **Adressing**: Media Access Control (MAC) unique identifier which comes with each network card
 
-- **Space**: ${2^{48} }$ possible MAC addresses, IEEE assigns the first 24 bits to a manufacturer and manufacturere assigns last 24 to their cards
+- **Space**: $2^{48} $ possible MAC addresses, IEEE assigns the first 24 bits to a manufacturer and manufacturere assigns last 24 to their cards
 - **notation**: the 48 bits are respresented by 6 pairs of hexadecimal numbers, each pair represents a 8 bits ( 1 Byte )
   - e.g  00:1A:2B:3C:4D:5E
   
@@ -207,8 +191,6 @@ Pb & = 10^{15}  \cdot b
 - **VLAN Trunking**:Multiple vlans over the same channel
 - **MAC/IP Filtering**: allow or deny based on mac or IP address
 
----
-
 ## Layer 3: Network Layer  
 
 **Packet**: Datagram (payload encapsulates Segment form layer 4)  
@@ -222,29 +204,27 @@ Pb & = 10^{15}  \cdot b
 **Interface**: Ethernet ports  
 **Address Space**:
 
-- **IPV4**: ${ 2^{32} }$ addressing space, x number of bits are used as a network id and y number of bits are used to identify a host
+- **IPV4**: $ 2^{32} $ addressing space, x number of bits are used as a network id and y number of bits are used to identify a host
   - **notation**: doted decimal, 4 Bytes (represented in decimal form) are seperated by dots.
-    - e.g: 192.168.1.4 -> 11000000 10101000 00000001 00000100
+    - e.g: 192.168.1.4 - 11000000 10101000 00000001 00000100
   - **Subnet Mask**: is a 32 bit number used to define the network bits vs the hosts bits
-  - **CIDR Notation**: rather than passing around both a IPV4 and subnet mask around, short hand < IPV4 address>/<# of network bits>
+  - **CIDR Notation**: rather than passing around both a IPV4 and subnet mask around, short hand < IPV4 address/<# of network bits
     - e.g: 192.168.1.4/24
   - **IPV4 Class Tpes**: IPV4 address fall under one of 5 classes, this is dependent on their first byte and defualt subnet mask
     - e.g Class E: reserved IP starting byte betweem 240-255 with a no default mask
       - reserved for expirmental research
   
----
-> table
-> **Public IPV4 class table**
->|Class | First byte range | default mask | Possible host|
->|------|------------------|--------------|--------------|
->| A    |  1 - 127         | 255.0.0.0    | 16.7 million |
->| B    | 128 - 191        | 255.255.0.0  | 65,536       |
->| C    | 192 - 223        | 255.255.255.0| 256          |
->| D    | 225 - 239        |   null       |              |
->| E    | 240 - 255        |  null        | 268 million  |
----
+ table
+ **Public IPV4 class table**
+|Class | First byte range | default mask | Possible host|
+|||--|--|
+| A    |  1 - 127         | 255.0.0.0    | 16.7 million |
+| B    | 128 - 191        | 255.255.0.0  | 65,536       |
+| C    | 192 - 223        | 255.255.255.0| 256          |
+| D    | 225 - 239        |   null       |              |
+| E    | 240 - 255        |  null        | 268 million  |
 
-- **IPV6**: ${ 2^{128} }$ addressing space, can map multiple IP's per NIC
+- **IPV6**: $ 2^{128} $ addressing space, can map multiple IP's per NIC
   - **notation**: 32 hex numbers,grouped into 8 sets of 4.
     - e.g: 2018:8888:0000:0000:0000:0000:48AB:54AE
       - shorthand: 2018:8::48AB:54AE
@@ -265,15 +245,13 @@ Pb & = 10^{15}  \cdot b
 - **Class Inter-Domain**:allows for partitioning of a network by creating a subnet mask from barrowed host bits.
 - **Private vs Private IP**: public is addressable by node over the inernet, private is only addressable for any node within a LAN.
 
----
-> table
-> **Private IP**
->| Class | Range | Possible Hosts |
->|-------|-------|----------------|
->| A     | 10    | 16.7 million |
->| B     | 172.16 - 172.31 | 1.05 million |
->| C     | 192.168 | 65,536  |
----
+ table
+ **Private IP**
+| Class | Range | Possible Hosts |
+|-|-|-|
+| A     | 10    | 16.7 million |
+| B     | 172.16 - 172.31 | 1.05 million |
+| C     | 192.168 | 65,536  |
 
 - **NAT**: Network address translation, allows private IP to share a public IP
 - **Loopback Address**: ( 127.0.0.1) aka localhost. used for creating local calls such as for testing and troubleshooting
@@ -286,13 +264,11 @@ Pb & = 10^{15}  \cdot b
 - **DHCP**: Dynamic Host Configuration Protocol runs on a server ( usually on the router), and is in charge for auto fully configuring devices.
 - **DNS**: Domain Name System core functionality is to translate ip address to domain names. If a server can't find a tranlation, it keeps moving up the chain of routers until a tranlation is found.
 
----
-> table
-> **Domain Name http: //www.my-domain-name .com/pathTofile**
-> |http:// | www. | my-domain-name|.com | /path to file |
-> |--------|------|----------------|----|---------------|
-> | service| subdomain|root domain | top level domain|  |
----
+ table
+ **Domain Name http: //www.my-domain-name .com/pathTofile**
+ |http:// | www | my-domain-name|.com | /path to file |
+ |--||-|-||
+ | service| subdomain|root domain | top level domain|  |
 
 **Data Flow**:
 
@@ -300,27 +276,25 @@ Pb & = 10^{15}  \cdot b
 - **multicast**:from one node to a group
 - **broadcast**: frome one node to everynode in network
 
----
-> mathblock
->**Subnetting**  
->${ subnets = 2^s }$ where s is the number of barrowed bits  
->${CIDR = 32 - \lceil log_{2}(users+2) \rceil }$  
->${ assignable IP = 2^h -2 }$ where h is the number host bits
->> first IP address is used as the network ID  
->> last IP is used as a broadcast ID, for every subnet
----
-> table
->**Subnetting ref table**
-> | CIDR | subnets |total IPS per sub net|
-> |:----:|:-----:| :------:|
-> |  /24 |    1    |    256  |
-> | /25  |    2    |    128  |
-> | /26  |    4    |    64   |
-> | /27  |    8    |    32   |
-> | /28  |    16   |    16   |
-> | /29  |    32   |   8     |
-> | /30  |    64   |   4     |
----
+mathblock
+**Subnetting**  
+$ subnets = 2^s $ where s is the number of barrowed bits  
+$CIDR = 32 - \lceil log_{2}(users+2) \rceil $  
+$ assignable IP = 2^h -2 $ where h is the number host bits
+ first IP address is used as the network ID  
+ last IP is used as a broadcast ID, for every subnet
+
+ table
+**Subnetting ref table**
+ | CIDR | subnets |total IPS per sub net|
+ |:-:|:--:| ::|
+ |  /24 |    1    |    256  |
+ | /25  |    2    |    128  |
+ | /26  |    4    |    64   |
+ | /27  |    8    |    32   |
+ | /28  |    16   |    16   |
+ | /29  |    32   |   8     |
+ | /30  |    64   |   4     |
 
 ## Layer 4: Transport Layer
 
@@ -330,14 +304,14 @@ Pb & = 10^{15}  \cdot b
 
 **Interface**:  Sockets  
 
-**Adress Space**:  Port, ${2^{16}}$ address space, which is used to differentiate layer 7 services/ procesess running on the same edge node.  
+**Adress Space**:  Port, $2^{16}$ address space, which is used to differentiate layer 7 services/ procesess running on the same edge node.  
 
--  ports 0-1023 are reserved for specific services, common ports:
-   - port 80 - http ( uses TCP )
-   - port 443 - https ( Uses TLS )
-   - port 21 - ftp
-   - port 22 - ssh
- - ports 1024-49151 can be regestried through IANA and used by applications and services
+- ports 0-1023 are reserved for specific services, common ports:
+  - port 80 - http ( uses TCP )
+  - port 443 - https ( Uses TLS )
+  - port 21 - ftp
+  - port 22 - ssh
+- ports 1024-49151 can be regestried through IANA and used by applications and services
 - ports 49152-65535 are dynamic ports which the operating system assigns to client applications when connecting with servers
 
 **Protocols**:  
@@ -353,53 +327,57 @@ Pb & = 10^{15}  \cdot b
 ## Layer 5 and 6: Session and Presentation Layers
 
 **Session Layer**: Keep data from getting tangled with other transmissions, responsible for setting up, maintaining and tearing down sessions.
-  - Common Protocols:
-    - H.323: Set up and maintain audio and video streaming using RTP ( layer 7 protocol )
-    - NetBios: Used for sharing files over a network
+
+- Common Protocols:
+  - H.323: Set up and maintain audio and video streaming using RTP ( layer 7 protocol )
+  - NetBios: Used for sharing files over a network
 
 **Presentation Layer**: Formats and encrypts/decrypts data.
-  - Common Protocols:
-      - TLS: extends TCP services by adding the following services:
-        - Security
-        - encryption
-        - data ingegration
-        - authentication
-  - Data Transformations:
-    - given a data file present the associated presentation with it:
-      - .png ${\rightarrow}$ graphical view of the image
-      - .html ${\rightarrow}$ web page
-      - .mp3 ${\rightarrow}$ audio
+
+- Common Protocols:
+  - TLS: extends TCP services by adding the following services:
+    - Security
+    - encryption
+    - data ingegration
+    - authentication
+- Data Transformations:
+  - given a data file present the associated presentation with it:
+    - .png $\rightarrow$ graphical view of the image
+    - .html $\rightarrow$ web page
+    - .mp3 $\rightarrow$ audio
 
 ## Layer 7: Application Layer
 
 **Packet**: Message
 
 **Protocols**: Must define the following:
-  - types of messages that can be exchanged
-  - the syntax for each of the message types
-  - rules for who and when to send or recieve a message
+
+- types of messages that can be exchanged
+- the syntax for each of the message types
+- rules for who and when to send or recieve a message
   
 **Common Protocols**:
-  - HTTP: Hypertext Transfer Protocol, used for web applications
-    - Port: 80
-    - Protocol: TCP
-    - Message Types: GET,POST,PUT,DELETE,HEAD
-  - HTTPS: Hypertext Transfer Protocol Secure, encrypts data exchanged
-    - Port: 443
-    - Protocol: TLS (Your HTTP operates on top of TLS)
-    - Message Types: Same as HTTP
-  - SSH: Secure Shell, provides secure remote access
-    - Port: 22
-    - Protocol: TCP
-    - Message Types: commands
-  - FTP: File Transfer Protocol, used to transfer files
-    - Port: 21 ( control ) & 20 ( data )
-    - Protocol: TCP
-    - Message Types: RETR,STOR,LIST,DELE
-  - DHCP: Dynamic Host configuration Protocol,auto configures NIC to a network
-    - Port: 67 (server) 68 (client)
-    - Protocol: UDP
-    - Message Types: DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK, DHCPNAK
+
+- HTTP: Hypertext Transfer Protocol, used for web applications
+  - Port: 80
+  - Protocol: TCP
+  - Message Types: GET,POST,PUT,DELETE,HEAD
+- HTTPS: Hypertext Transfer Protocol Secure, encrypts data exchanged
+  - Port: 443
+  - Protocol: TLS (Your HTTP operates on top of TLS)
+  - Message Types: Same as HTTP
+- SSH: Secure Shell, provides secure remote access
+  - Port: 22
+  - Protocol: TCP
+  - Message Types: commands
+- FTP: File Transfer Protocol, used to transfer files
+  - Port: 21 ( control ) & 20 ( data )
+  - Protocol: TCP
+  - Message Types: RETR,STOR,LIST,DELE
+- DHCP: Dynamic Host configuration Protocol,auto configures NIC to a network
+  - Port: 67 (server) 68 (client)
+  - Protocol: UDP
+  - Message Types: DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK, DHCPNAK
 
 **Application Architecture**:  
 
@@ -408,21 +386,22 @@ Pb & = 10^{15}  \cdot b
 - **Peer-2-Peer**: Clients need to directly communcate with one anohter
 
 **Communication Strategies**:
-  - **Request-Response Modal**:
-    - Client: sends a request
-    - Server: process the request and sends back a response
-    - Client: recieves the response
-  - **Push Modal**:
-    - Client: client connects to the server
-    - Server: pushes it new data when new data for the client exists
-    - client: listens for new data
-  - **Short Polling**:
-    - client: Sends a long request
-    - server: responds with a url handle,which will show status of the request
-    - client: polls uses handle to request for status updates
-    - server: handles each handle request immediatly
-  - **Long Polling**:
-    - same as short polling but instead of the server handling each handle request, it ignores it until it has a response
+
+- **Request-Response Modal**:
+  - Client: sends a request
+  - Server: process the request and sends back a response
+  - Client: recieves the response
+- **Push Modal**:
+  - Client: client connects to the server
+  - Server: pushes it new data when new data for the client exists
+  - client: listens for new data
+- **Short Polling**:
+  - client: Sends a long request
+  - server: responds with a url handle,which will show status of the request
+  - client: polls uses handle to request for status updates
+  - server: handles each handle request immediatly
+- **Long Polling**:
+  - same as short polling but instead of the server handling each handle request, it ignores it until it has a response
 
 ## The Cloud
 

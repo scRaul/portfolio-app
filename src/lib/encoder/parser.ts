@@ -1,3 +1,4 @@
+import exp from 'constants';
 import fs from 'fs';
 import yaml from 'js-yaml';
 import remarkFrontmatter from 'remark-frontmatter';
@@ -10,8 +11,8 @@ import {unified} from 'unified';
 interface MarkdownMetadata {
   [key: string]: any;
 }
-type BlockType =
-    'code'|'mathblock'|'yaml'|'paragraph'|'image'|'footnote'|'list'|'heading';
+type BlockType = 'code'|'mathblock'|'yaml'|'paragraph'|'image'|'footnote'|
+    'list'|'heading'|'table';
 type ParaType = 'text'|'link'|'footref';
 
 interface Code {
@@ -19,49 +20,51 @@ interface Code {
   meta: string;
   value: string;
 }
-interface MathBlock {
+export interface MathBlockMd {
   meta: string;
   value: string;
 }
-interface Paragraph {
+export interface ParagraphMd {
   type: ParaType;
   data: any[];
 }
 interface Footnote {
   id: string;
-  data: Text[];
+  data: TextMd[];
 }
 interface FootRef {
   id: string;
 }
-interface Text {
+export interface TextMd {
   style: 'text'|'strong'|'emphasis'|'inlinemath'|'emphasis-strong';
   value: string
 }
 interface TempLink {
   title: string;
   url: string;
-  children?: Text[];
+  children?: TextMd[];
 }
-interface Link {
+export interface LinkMd {
   title: string;
   url: string;
 }
-interface Img {
+export interface ImgMd {
   title: string;
   url: string;
   alt: string;
 }
-interface Heading {
+export interface HeadingMd {
   depth: number;
-  text: Text[];
+  text: TextMd[];
 }
-interface MDBlock {
+export interface MDBlock {
   type: BlockType;
   data: any;
 }
-
-
+export interface ListMd {
+  style: 'ol'|'ul';
+  data: any[];
+}
 export function readFileContents(filePath: string): string|null {
   try {
     return fs.readFileSync(filePath, 'utf8');
@@ -71,10 +74,10 @@ export function readFileContents(filePath: string): string|null {
   }
 }
 
-export async function parseMarkdown<T extends MarkdownMetadata>(
-    markdownPath: string, interfaceType: T) {
+export function parseMarkdown<T extends MarkdownMetadata>(
+    markdownPath: string, interfaceType: T): MDBlock[] {
   const markdown = readFileContents(markdownPath);
-  if (!markdown) return null;
+  if (!markdown) return [];
   try {
     const processor = unified()
                           .use(remarkParse)
@@ -103,7 +106,7 @@ export async function parseMarkdown<T extends MarkdownMetadata>(
       } else if (child.type == 'math') {
         let {meta, value} = child;
         if (!meta) meta = `Equation ${i}`
-          const mathblock: MathBlock = {meta, value};
+          const mathblock: MathBlockMd = {meta, value};
         blocks.push({type: 'mathblock', data: mathblock});
       } else if (child.type == 'paragraph') {
         blocks.push(...parseParagraph(child, i));
@@ -112,7 +115,7 @@ export async function parseMarkdown<T extends MarkdownMetadata>(
         let data: any[] = [];
         temp.forEach(
             block => {block.data.forEach(
-                (item: any) => {item.forEach((text: Text) => {
+                (item: any) => {item.forEach((text: TextMd) => {
                   data.push(text);
                 })
 
@@ -121,26 +124,36 @@ export async function parseMarkdown<T extends MarkdownMetadata>(
         blocks.push({type: 'footnote', data: footnote});
       } else if (child.type == 'list') {
         const listData = parseList(child, i);
-        blocks.push({type: 'list', data: listData});
+        const style = child.ordered ? 'ol' : 'ul';
+        const list: ListMd = {style, data: listData};
+        blocks.push({type: 'list', data: list});
       } else if (child.type == 'heading') {
         const {type, depth} = child;
-        const text: Text[] = [];
+        const text: TextMd[] = [];
         child.children.forEach((grand: any) => {
           text.push({style: grand.type, value: grand.value});
         })
-        const heading: Heading = {depth, text};
+        const heading: HeadingMd = {depth, text};
         blocks.push({type, data: heading});
       } else if (child.type == 'table') {
-        console.log(child);
-
+        const table: any[] = [];
+        child.children.forEach((row: any) => {
+          row.children.forEach((col: any) => {
+            const tcblock = parseParagraph(col, i);
+            table.push({style: 'td', data: tcblock[0].data});
+          });
+          table.push({style: 'tr', data: []});
+        });
+        blocks.push({type: 'table', data: table});
       } else {
         console.log(child.type)
       }
     }
     // printBlock(blocks);
+    return blocks;
   } catch (error) {
     console.error('Error parsing Markdown:', error);
-    return null;
+    return [];
   }
 }
 
@@ -168,43 +181,44 @@ function parseParagraph(paragraph: any, index: number) {
   paragraph.children.forEach((grand: any) => {
     if (grand.type == 'break') return;
     if (grand.type == 'text') {
-      const text: Text = {style: 'text', value: grand.value};
+      const text: TextMd = {style: 'text', value: grand.value};
       data.push(text);
     } else if (grand.type == 'strong' || grand.type == 'emphasis') {
       if (grand.children[0].type == 'text') {
-        const text: Text = {style: grand.type, value: grand.children[0].value};
+        const text:
+            TextMd = {style: grand.type, value: grand.children[0].value};
         data.push(text);
       } else {  // nested
         const tstyle = grand.type + '-' + grand.children[0].type;
         if (tstyle == 'emphasis-strong') {
           const tvalue = grand.children[0].children[0].value;
-          const text: Text = {style: tstyle, value: tvalue};
+          const text: TextMd = {style: tstyle, value: tvalue};
           data.push(text);
         }
       }
     } else if (grand.type == 'inlineMath') {
-      const text: Text = {style: 'inlinemath', value: grand.value};
+      const text: TextMd = {style: 'inlinemath', value: grand.value};
       data.push(text);
     } else if (grand.type == 'link') {
       let {title, url} = grand;
       if (!title) title = url;
-      let children: Text[] = [];
+      let children: TextMd[] = [];
       if (grand?.children) {
         grand.children.forEach((item: any) => {
-          const txt: Text = {style: item.type, value: item.value};
+          const txt: TextMd = {style: item.type, value: item.value};
           children.push(txt);
         })
       }
       if (children?.length) {
         title = children[0].value;
       }
-      const link: Link = {title, url};
+      const link: LinkMd = {title, url};
       data.push(link);
     } else if (grand.type == 'image') {
       let {title, url, alt} = grand;
       if (!title) title = `Figure ${index}`;
       if (!alt) alt = 'image';
-      const data: Img = {title, url, alt};
+      const data: ImgMd = {title, url, alt};
       blocks.push({type: 'image', data});
 
     } else if (grand.type == 'footnoteReference') {
@@ -215,7 +229,7 @@ function parseParagraph(paragraph: any, index: number) {
         data.push(block.data);
       })
     } else {
-      console.log(grand);
+      console.log(grand.type);
     }
   })
   blocks.push({type, data});

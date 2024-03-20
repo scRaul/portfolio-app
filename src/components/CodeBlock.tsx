@@ -3,7 +3,7 @@ import { a11yDark as style } from "react-syntax-highlighter/dist/cjs/styles/pris
 
 interface CodeProps {
   code: string | null;
-  language: string;
+  lang: string;
   className?: string;
   disableNumbers?: boolean;
 }
@@ -13,7 +13,7 @@ export default function Code(props: CodeProps) {
   const enableNumbers = props.disableNumbers ? !props.disableNumbers : true;
 
   return (
-    <SyntaxHighlighter language={props.language} style={style}>
+    <SyntaxHighlighter language={props.lang} style={style}>
       {code}
     </SyntaxHighlighter>
   );
