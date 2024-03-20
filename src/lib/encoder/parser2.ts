@@ -21,16 +21,18 @@ function extractChildren(
   }
   if (childNode.type == 'text') {
     var tokens = childNode.value.split('$');
+    console.log(tokens);
     tokens.forEach((tok: string) => {
       if (tok == '') return;
       if (tok[1] == '\n') {
         parentsList.push('mathblock');
-
+        tok = tok.replaceAll('\\\n', '\\\\\n');
       } else if (tok[0] == '{') {
         parentsList.push('math');
+        tok = tok.replaceAll('\\\n', '\\\\\n');
       } else
         parentsList.push('text');
-      tok = tok.replace('\\\n', '\\\\\n');
+
       data.push(tok)
     })
     return [parentsList, data];
@@ -41,10 +43,13 @@ function extractChildren(
     data.push(childNode.alt);
     return [parentsList, data];
   } else if (childNode.type == 'yaml') {
-    const tokens = childNode.value.split('\n');
-    tokens.forEach((tok: string) => {
-      data.push(tok);
-    })
+    data.push(childNode.value);
+    return [parentsList, data];
+  } else if (childNode.type == 'link') {
+    parentsList.push('link');
+    data.push(childNode.url);
+    data.push(childNode.children[0].value);
+    return [parentsList, data];
   }
   if ('children' in childNode) {
     childNode.children.forEach((node: any) => {
@@ -73,9 +78,10 @@ export async function getMarkdownBlocks(markdownPath: string) {
                      .use(remarkGfm)
                      .parse(markdown);
 
-    for (let i = 1; i < tree.children.length; i++) {
+    for (let i = 0; i < tree.children.length; i++) {
       const child = tree.children[i];
       if (child.type == 'thematicBreak') continue;
+
       const [parentsList, data] = extractChildren([child.type], child, []);
       const block = createBlock(parentsList, data, child, i);
       blockList.push(block);
@@ -117,7 +123,17 @@ function createBlock(
     style = parents[1];
     return {type, style, nodes: [{type: data[0], values: []}], index};
   }
+  if (parents[1] == 'link') {
+    var url: MdValue = {style: parents[parents.length - 1], value: data[0]};
+    var alt: MdValue = {style: parents[parents.length - 1], value: data[1]};
+    var node: MdNode = {type: 'link', values: [url, alt]};
+    return {type, style, nodes: [node], index};
+  }
   const block: MdBlock = {type, style, nodes: [], index};
+  if (type == 'yaml') {
+    block.style = data[0];
+    return block;
+  }
   var p = 1;
   var d = 0;
   while (d < data.length && p < parents.length) {
@@ -140,7 +156,9 @@ function createBlock(
 
       p--;
       d--;
-      block.nodes.push(node);
+      if (node.values.length > 0) {
+        block.nodes.push(node);
+      }
     } else if (parents[p].includes('Row')) {
       block.nodes.push({type: 'tr', values: []});
       d--;
@@ -173,8 +191,18 @@ function createBlock(
         if (parents[p] == 'emphasis' || parents[p] == 'strong') {
           p++;
         }
+        if (parents[p] == 'mathblock') {
+          node.type = 'mathblock';
+        }
       }
       block.nodes.push(node);
+    }
+
+    if (block.type == 'paragraph') {
+      if (block.nodes[0].type == 'mathblock') {
+        block.type = 'mathblock';
+      } else
+        block.style = 'paragraph';
     }
 
 
@@ -185,7 +213,7 @@ function createBlock(
   return block;
 }
 
-function printBlock(block: MdBlock) {
+export function printBlock(block: MdBlock) {
   console.log(block);
   block.nodes.forEach(n => {
     console.log(n);

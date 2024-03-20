@@ -14,7 +14,7 @@ export default function JournalIndex(props: JournalIndexProps) {
           key={index}
           className="p-1 hover:bg-[#00000033] cursor-pointer font-medium"
         >
-          {section.title}
+          {section}
         </p>
       ))}
     </div>

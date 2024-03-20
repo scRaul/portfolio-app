@@ -1,8 +1,9 @@
 ---
-title: Computer Networks
-doc: Journal
-publish: false
-updated: 3/16/2024
+title: Testing
+createdAt: 03/18/2024
+updatedAt: 03/19/2024
+author: Raul Ramirez
+hero: public/comm_channel.png
 ---
 ## Key Concpets
 
