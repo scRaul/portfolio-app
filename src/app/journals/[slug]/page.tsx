@@ -13,10 +13,9 @@ import {
   TextMd,
   LinkMd,
   ListMd,
+  Article,
 } from "@/lib/encoder/parser";
 import Link from "next/link";
-import { table } from "console";
-
 interface JournalMeta {
   title: string;
   createdAt: string;
@@ -24,35 +23,63 @@ interface JournalMeta {
   author: string;
   hero: string;
   published: boolean;
+  content: string;
 }
-
 export default async function JounralPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const blocks: MDBlock[] = parseMarkdown(
-    `src/content/journals/md/networking.md`,
-    {
-      title: "",
-      createdAt: "",
-      updatedAt: "",
-      author: "",
-      hero: "",
-      published: false,
-    }
+  const article = parseMarkdown(`src/content/journals/md/test.md`, {
+    title: "",
+    createdAt: "",
+    updatedAt: "",
+    author: "",
+    hero: "",
+    published: false,
+    content: "Journal",
+  });
+  const nodes = parseArticle(article);
+  return (
+    <article className="pt-1 pl-2 w-full max-w-4xl mx-auto">{nodes}</article>
   );
-  const article: ReactNode[] = blocks.map(parseBlock);
-  // return <p>a</p>;
-  return <article className="pt-1 pl-2 w-full">{article}</article>;
 }
+function parseArticle(article: Article<JournalMeta>) {
+  const reactNodes: ReactNode[] = [];
+  reactNodes.push(
+    <JounralMeta
+      meta={article.metadata}
+      key={"jmeta" + randomUUID()}
+    ></JounralMeta>
+  );
+  article.section.forEach((sec, index) => {
+    var blockNodes: ReactNode[] = [];
+    sec.forEach((block) => {
+      blockNodes.push(parseBlock(block));
+    });
+    reactNodes.push(
+      <section id={article.sectionId[index]} key={"sec" + index}>
+        {blockNodes}
+      </section>
+    );
+    blockNodes = [];
+  });
+
+  return reactNodes;
+}
+
 function parseBlock(block: MDBlock) {
   if (block.type == "yaml") {
     const meta: JournalMeta = block.data;
-    return <JounralMeta meta={meta}></JounralMeta>;
+    return <JounralMeta meta={meta} key={"jmeta" + randomUUID()}></JounralMeta>;
   }
   if (block.type == "heading") {
-    return <JounralHeading heading={block.data}></JounralHeading>;
+    return (
+      <JounralHeading
+        heading={block.data}
+        key={"jh-" + randomUUID()}
+      ></JounralHeading>
+    );
   }
   if (block.type == "paragraph") {
     const pNodes: ReactNode[] = [];
@@ -63,20 +90,34 @@ function parseBlock(block: MDBlock) {
         pNodes.push(getLink(element));
       }
     });
-    return <p>{pNodes}</p>;
+    return <p key={"p-" + randomUUID()}>{pNodes}</p>;
   }
   if (block.type == "mathblock") {
     const { meta, value } = block.data;
-    return <BlockMath>{value}</BlockMath>;
+    return <BlockMath key={"mb-" + randomUUID()}>{value}</BlockMath>;
   }
   if (block.type == "code") {
     const { lang, meta, value } = block.data;
-    return <CodeBlock lang={lang} code={value}></CodeBlock>;
+    return (
+      <CodeBlock
+        lang={lang}
+        code={value}
+        key={"code-" + randomUUID()}
+      ></CodeBlock>
+    );
   }
   if (block.type == "image") {
     var img: ImgMd = block.data;
     img.url = img.url.replace("/public", "");
-    return <Image src={img.url} alt={img.alt} width={300} height={150}></Image>;
+    return (
+      <Image
+        src={img.url}
+        alt={img.alt}
+        width={300}
+        height={150}
+        key={"img-" + randomUUID()}
+      ></Image>
+    );
   }
   if (block.type == "list") {
     const list: ListMd = block.data;
@@ -91,19 +132,27 @@ function parseBlock(block: MDBlock) {
       if (row.style == "tr") {
         if (!doneHeader) doneHeader = true;
         else {
-          tbody.push(<tr>{trow}</tr>);
+          tbody.push(<tr key={"tr-" + randomUUID()}>{trow}</tr>);
           trow = [];
         }
       } else {
-        console.log(row);
         const col = row.data.map(getJText);
         if (doneHeader)
-          trow.push(<td className="border border-black">{col}</td>);
-        else thead.push(<th className="border border-black">{col}</th>);
+          trow.push(
+            <td key={"td-" + randomUUID()} className="border border-black">
+              {col}
+            </td>
+          );
+        else
+          thead.push(
+            <th key={"th-" + randomUUID()} className="border border-black">
+              {col}
+            </th>
+          );
       }
     });
     return (
-      <table>
+      <table key={"table-" + randomUUID()} className="mx-auto my-2">
         <thead>
           <tr>{thead}</tr>
         </thead>
@@ -114,7 +163,8 @@ function parseBlock(block: MDBlock) {
   return <p>{block.type}</p>;
 }
 
-function JounralMeta({ meta }: { meta: JournalMeta }) {
+function JounralMeta({ meta }: { meta: JournalMeta | null }) {
+  if (!meta) return <small className="text-red-500">error parsing</small>;
   const src = meta.hero.replace("/public", "");
   return (
     <header className="w-full mx-auto">
@@ -134,13 +184,8 @@ function JounralMeta({ meta }: { meta: JournalMeta }) {
 function JounralHeading({ heading }: { heading: HeadingMd }) {
   const values = heading.text.map(getJText);
   const tokens: string[] = [];
-  heading.text.forEach((txt) => {
-    const words = txt.value.split(" ");
-    words.forEach((word) => {
-      tokens.push(word.trim());
-    });
-  });
-  const id = tokens.join("-").toLowerCase();
+
+  const id = heading.id;
   switch (heading.depth) {
     case 2:
       return (
@@ -150,7 +195,7 @@ function JounralHeading({ heading }: { heading: HeadingMd }) {
       );
     case 3:
       return (
-        <div className="flex gap-2 items-baseline">
+        <div className="flex gap-2 items-baseline" key={"h3-" + randomUUID()}>
           <div className="w-3 h-4 bg-red-500"></div>
           <H3 id={id} className="font-semibold">
             {values}
@@ -159,46 +204,75 @@ function JounralHeading({ heading }: { heading: HeadingMd }) {
       );
     case 4:
       return (
-        <H4 id={id} className="font-semibold">
+        <H4 id={id} key={"Hh-" + randomUUID()} className="font-semibold">
           {values}
         </H4>
       );
     case 5:
       return (
-        <H5 id={id} className="font-semibold">
+        <H5 id={id} key={"Hh-" + randomUUID()} className="font-semibold">
           {values}
         </H5>
       );
     case 6:
       return (
-        <H6 id={id} className="font-semibold">
+        <H6 id={id} key={"Hh-" + randomUUID()} className="font-semibold">
           {values}
         </H6>
       );
     default:
-      return <p id={id}>{values}</p>;
+      return (
+        <p id={id} key={"Hh-" + randomUUID()}>
+          {values}
+        </p>
+      );
   }
 }
 function getJText(text: TextMd) {
   switch (text.style) {
     case "text":
-      return <span className="">{text.value}</span>;
+      return (
+        <span className="" key={"text-" + randomUUID()}>
+          {text.value}
+        </span>
+      );
     case "strong":
-      return <span className="font-bold">{text.value}</span>;
+      return (
+        <span className="font-bold" key={"text-" + randomUUID()}>
+          {text.value}
+        </span>
+      );
     case "emphasis":
-      return <span className="italic">{text.value}</span>;
+      return (
+        <span className="italic" key={"text-" + randomUUID()}>
+          {text.value}
+        </span>
+      );
     case "inlinemath":
-      return <InlineMath>{text.value}</InlineMath>;
+      return <InlineMath key={"text-" + randomUUID()}>{text.value}</InlineMath>;
     case "emphasis-strong":
-      return <span className="italic font-bold">{text.value}</span>;
+      return (
+        <span className="italic font-bold" key={"text-" + randomUUID()}>
+          {text.value}
+        </span>
+      );
   }
 }
 function getLink(link: LinkMd) {
   if (link.url[0] == "#") {
-    return <Link href={link.url}>{link.title}</Link>;
+    return (
+      <Link href={link.url} key={"link-" + randomUUID()}>
+        {link.title}
+      </Link>
+    );
   }
   return (
-    <a href={link.url} target="_blank" className="text-blue-500 underline">
+    <a
+      href={link.url}
+      target="_blank"
+      className="text-blue-500 underline"
+      key={"a-" + randomUUID()}
+    >
       {link.title}
     </a>
   );
@@ -218,20 +292,28 @@ function JounralList(list: ListMd, index: number) {
       }
     });
     if (nested) listNodes.push(line);
-    else listNodes.push(<li>{line}</li>);
+    else listNodes.push(<li key={"li" + randomUUID()}>{line}</li>);
     nested = false;
     line = [];
   });
   const padding = index * 20;
   if (list.style == "ol") {
     return (
-      <ol className="list-decimal list-inside" style={{ marginLeft: padding }}>
+      <ol
+        className="list-decimal list-inside"
+        style={{ marginLeft: padding }}
+        key={"ol-" + randomUUID()}
+      >
         {listNodes}
       </ol>
     );
   } else {
     return (
-      <ul className="list-disc list-inside" style={{ marginLeft: padding }}>
+      <ul
+        className="list-disc list-inside"
+        style={{ marginLeft: padding }}
+        key={"ul-" + randomUUID()}
+      >
         {listNodes}
       </ul>
     );

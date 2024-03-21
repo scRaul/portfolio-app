@@ -36,11 +36,11 @@ Pb & = 10^{15}  \cdot b
 \end{align*}
 $$
 
-**Binary Number System**  
+**Binary Number System**:
 leftmost system, digits to the left hold a heigher weight  
 $\beta_n 2^n + \beta_{n-1} 2^n-1 + ... + \beta_0 2^0$
 
-**Memory Slot Unit**  
+**Memory Slot Unit**:
 Byte $B = 8b$
 
 ## Network Topologies  
@@ -128,7 +128,7 @@ Byte $B = 8b$
 - **MDF**: Main distribution frame, the root of your network ( where your root switch is)
 - **IDF**: Intermediata distribution frame, where other switches exists in your network
 - **Patch Pannel**: Exists at MDF connection to the switch are made through the patch pannel, cheap device to prevent wear and tear on switch ports + cable managment
-- **Punch Down Pannel**: Exists in MDF and connects **IDF's** to the **MDF** via the patch pannel
+- **Punch Down Pannel**: Exists in MDF and connects **IDF's**:to the **MDF**:via the patch pannel
 
  **Ethernet Cable Comparison**:
 | Category | Standard | Bandwidth | Distance | Frequency Range |
@@ -143,11 +143,10 @@ Byte $B = 8b$
 
 ## Layer 2: Link Layer
 
-**Packet** Frame (payload encapsulates Datagram from layer 3)
+**Packet**:Frame (payload encapsulates Datagram from layer 3)
 
- table
 | Preamble | Destination MAC | Source MAC | Type | payload | FCS|
-|-|--||||-|
+|-|-|-|-|-|-|
 | 8 Bytes  |     6 Bytes     | 6 Bytes    | 2 Bytes | 46-1500 Bytes| 4 Bytes|
 
 **Policy**:
@@ -213,11 +212,10 @@ Byte $B = 8b$
   - **IPV4 Class Tpes**: IPV4 address fall under one of 5 classes, this is dependent on their first byte and defualt subnet mask
     - e.g Class E: reserved IP starting byte betweem 240-255 with a no default mask
       - reserved for expirmental research
-  
- table
- **Public IPV4 class table**
+
+ **Public IPV4 class table**:
 |Class | First byte range | default mask | Possible host|
-|||--|--|
+|------|------------------|--------------|--------------|
 | A    |  1 - 127         | 255.0.0.0    | 16.7 million |
 | B    | 128 - 191        | 255.255.0.0  | 65,536       |
 | C    | 192 - 223        | 255.255.255.0| 256          |
@@ -245,10 +243,9 @@ Byte $B = 8b$
 - **Class Inter-Domain**:allows for partitioning of a network by creating a subnet mask from barrowed host bits.
 - **Private vs Private IP**: public is addressable by node over the inernet, private is only addressable for any node within a LAN.
 
- table
- **Private IP**
+ **Private IP**:
 | Class | Range | Possible Hosts |
-|-|-|-|
+|-------|-------|----------------|
 | A     | 10    | 16.7 million |
 | B     | 172.16 - 172.31 | 1.05 million |
 | C     | 192.168 | 65,536  |
@@ -264,10 +261,9 @@ Byte $B = 8b$
 - **DHCP**: Dynamic Host Configuration Protocol runs on a server ( usually on the router), and is in charge for auto fully configuring devices.
 - **DNS**: Domain Name System core functionality is to translate ip address to domain names. If a server can't find a tranlation, it keeps moving up the chain of routers until a tranlation is found.
 
- table
- **Domain Name http: //www.my-domain-name .com/pathTofile**
+ **Domain Name http: //www.my-domain-name .com/pathTofile**:
  |http:// | www | my-domain-name|.com | /path to file |
- |--||-|-||
+ |--------|-----|---------------|-----|---------------|
  | service| subdomain|root domain | top level domain|  |
 
 **Data Flow**:
@@ -276,18 +272,16 @@ Byte $B = 8b$
 - **multicast**:from one node to a group
 - **broadcast**: frome one node to everynode in network
 
-mathblock
-**Subnetting**  
+**Subnetting**:
 $ subnets = 2^s $ where s is the number of barrowed bits  
 $CIDR = 32 - \lceil log_{2}(users+2) \rceil $  
 $ assignable IP = 2^h -2 $ where h is the number host bits
  first IP address is used as the network ID  
  last IP is used as a broadcast ID, for every subnet
 
- table
-**Subnetting ref table**
+**Subnetting ref table**:
  | CIDR | subnets |total IPS per sub net|
- |:-:|:--:| ::|
+ |------|---------|--------------------|
  |  /24 |    1    |    256  |
  | /25  |    2    |    128  |
  | /26  |    4    |    64   |

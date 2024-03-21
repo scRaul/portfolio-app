@@ -1,6 +1,5 @@
-import exp from 'constants';
 import fs from 'fs';
-import yaml from 'js-yaml';
+import yaml, {Mark} from 'js-yaml';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -55,6 +54,7 @@ export interface ImgMd {
 }
 export interface HeadingMd {
   depth: number;
+  id: string;
   text: TextMd[];
 }
 export interface MDBlock {
@@ -65,6 +65,14 @@ export interface ListMd {
   style: 'ol'|'ul';
   data: any[];
 }
+export interface Article<T extends MarkdownMetadata> {
+  metadata: T|null;
+  sectionId: string[];
+  section: MDBlock[][];
+}
+
+
+
 export function readFileContents(filePath: string): string|null {
   try {
     return fs.readFileSync(filePath, 'utf8');
@@ -75,29 +83,52 @@ export function readFileContents(filePath: string): string|null {
 }
 
 export function parseMarkdown<T extends MarkdownMetadata>(
-    markdownPath: string, interfaceType: T): MDBlock[] {
+    markdownPath: string, interfaceType: T): Article<T> {
+  var article: Article<T> = {metadata: null, sectionId: [], section: []};
   const markdown = readFileContents(markdownPath);
-  if (!markdown) return [];
+  if (!markdown) return article;
   try {
     const processor = unified()
                           .use(remarkParse)
                           .use(remarkFrontmatter)
                           .use(remarkGfm)
                           .use(remarkMath)
-    const blocks: MDBlock[] = [];
+    var blocks: MDBlock[] = [];
+    const sectionId: string[] = [];
+    const section: MDBlock[][] = [];
+    var metadata = null;
     const tree = processor.parse(markdown);
     let i = 0;
     const yamlNode = tree.children[i];
     if (yamlNode.type == 'yaml') {
       i++;
       const yamlContent = yamlNode.value;
-      const metadata = yaml.load(yamlContent) as T;
-      blocks.push({type: 'yaml', data: metadata});
+      metadata = yaml.load(yamlContent) as T;
     }
 
     for (; i < tree.children.length; i++) {
       const child = tree.children[i];
-      if (child.type == 'code') {
+      if (child.type == 'heading') {
+        const {type, depth} = child;
+        const text: TextMd[] = [];
+        var values: string[] = [];
+        child.children.forEach((grand: any) => {
+          text.push({style: grand.type, value: grand.value});
+          const tokens = grand.value.split(' ');
+          values.push(...tokens);
+        })
+        const id = values.join('-').toLowerCase();
+        const heading: HeadingMd = {depth, text, id};
+        blocks.push({type, data: heading});
+
+        if (depth == 2) {
+          if (sectionId.length > 0) {
+            section.push(blocks);
+            blocks = [];
+          }
+          sectionId.push(id);
+        }
+      } else if (child.type == 'code') {
         let {lang, meta, value} = child;
         if (!lang) lang = 'js';
         if (!meta) meta = '\';'
@@ -127,14 +158,6 @@ export function parseMarkdown<T extends MarkdownMetadata>(
         const style = child.ordered ? 'ol' : 'ul';
         const list: ListMd = {style, data: listData};
         blocks.push({type: 'list', data: list});
-      } else if (child.type == 'heading') {
-        const {type, depth} = child;
-        const text: TextMd[] = [];
-        child.children.forEach((grand: any) => {
-          text.push({style: grand.type, value: grand.value});
-        })
-        const heading: HeadingMd = {depth, text};
-        blocks.push({type, data: heading});
       } else if (child.type == 'table') {
         const table: any[] = [];
         child.children.forEach((row: any) => {
@@ -146,14 +169,18 @@ export function parseMarkdown<T extends MarkdownMetadata>(
         });
         blocks.push({type: 'table', data: table});
       } else {
-        console.log(child.type)
+        console.log(child.type);
       }
     }
-    // printBlock(blocks);
-    return blocks;
+
+    section.push(blocks);
+    article = {metadata, sectionId, section};
+
+
+    return article;
   } catch (error) {
     console.error('Error parsing Markdown:', error);
-    return [];
+    return article;
   }
 }
 
