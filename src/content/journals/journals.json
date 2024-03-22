@@ -1,11 +1,1 @@
-{
-    "journals":[
-    {
-        "title":"Computer Networks",
-        "thumbnail":"/network_thumbnail.png",
-        "alt":"overview of the internet",
-        "slug":"networking",
-        "public":false
-    }
-]
-}
+{"journals":["networking","operatingsystems","test"],"metadata":[{"title":"Computer Networks","createdAt":"03/18/2024","updatedAt":"03/19/2024","author":"Raul Ramirez","hero":"/public/comm_channel.png","content":"Journal","slug":"networking","published":true},{"title":"Operating Systems","createdAt":"03/18/2024","updatedAt":"03/19/2024","author":"Raul Ramirez","hero":"/public/comm_channel.png","content":"Journal","slug":"operatingsystems","published":true},{"title":"Test","createdAt":"03/18/2024","updatedAt":"03/19/2024","author":"Raul Ramirez","hero":"/public/comm_channel.png","content":"Journal","slug":"test","published":true}]}

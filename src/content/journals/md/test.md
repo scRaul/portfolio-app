@@ -1,10 +1,12 @@
 ---
-title: Testing
+title: Test 
 createdAt: 03/18/2024
 updatedAt: 03/19/2024
 author: Raul Ramirez
 hero: /public/comm_channel.png
-content: Jounral
+content: Journal
+slug: test
+published: true
 ---
 
 

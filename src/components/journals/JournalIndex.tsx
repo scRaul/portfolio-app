@@ -1,21 +1,21 @@
-import { IJournalContent } from "@/lib/interfaces/journals";
+import { TSectionId } from "@/lib/encoder/parser";
+import Link from "next/link";
 
 interface JournalIndexProps {
-  title: string;
-  sections: IJournalContent[];
+  sections: TSectionId[];
 }
 
 export default function JournalIndex(props: JournalIndexProps) {
   return (
-    <div className=" bg-[#00000055] p-2 hidden md:block w-48">
-      <h1 className="font-bold underline py-2">{props.title}</h1>
+    <div className="fixed  hidden sm:block overflow-auto h-screen top-0 pt-20 w-32 xl:w-52 px-2 shadow-md shadow-black">
       {props.sections.map((section, index) => (
-        <p
+        <Link
+          href={`#${section.id}`}
           key={index}
-          className="p-1 hover:bg-[#00000033] cursor-pointer font-medium"
+          className="whitespace-break-spaces hover:text-blue-600 cursor-pointer font-medium tracking-tighter my-2 leading-tight block"
         >
-          {section}
-        </p>
+          {section.slug}
+        </Link>
       ))}
     </div>
   );

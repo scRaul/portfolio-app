@@ -1,5 +1,5 @@
-import fs from 'fs';
-import yaml, {Mark} from 'js-yaml';
+import * as fs from 'fs';
+import * as yaml from 'js-yaml';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -65,9 +65,13 @@ export interface ListMd {
   style: 'ol'|'ul';
   data: any[];
 }
+export type TSectionId = {
+  slug: string,
+  id: string
+};
 export interface Article<T extends MarkdownMetadata> {
   metadata: T|null;
-  sectionId: string[];
+  sectionId: TSectionId[];
   section: MDBlock[][];
 }
 
@@ -94,7 +98,7 @@ export function parseMarkdown<T extends MarkdownMetadata>(
                           .use(remarkGfm)
                           .use(remarkMath)
     var blocks: MDBlock[] = [];
-    const sectionId: string[] = [];
+    const sectionId: TSectionId[] = [];
     const section: MDBlock[][] = [];
     var metadata = null;
     const tree = processor.parse(markdown);
@@ -126,7 +130,8 @@ export function parseMarkdown<T extends MarkdownMetadata>(
             section.push(blocks);
             blocks = [];
           }
-          sectionId.push(id);
+          const slug = values.join(' ');
+          sectionId.push({slug, id});
         }
       } else if (child.type == 'code') {
         let {lang, meta, value} = child;

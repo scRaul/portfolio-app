@@ -6,7 +6,7 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -26,7 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/lib/encoder/parser.ts"
+    "src/lib/encoder/parser.ts",
+    "src/lib/encoder/encoder.js",
+    "src/lib/encoder/encoder.mjs"
   ],
   "exclude": ["node_modules"]
 }

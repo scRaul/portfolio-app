@@ -20,7 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <header className="w-full pr-10 flex gap-2 justify-end pt-5 pb-3 font-mono text-lg bg-blue-500 shadow-lg shadow-[#00000080]">
+          <header
+            className="w-full pr-10 flex gap-2 justify-end pt-5 pb-3 font-mono text-lg bg-blue-500 shadow-lg shadow-[#00000080]"
+            style={{ zIndex: 100 }}
+          >
             <Link href="/" className="hover:underline">
               {"Home"}
             </Link>
@@ -34,9 +37,7 @@ export default function RootLayout({
               {"Blog"}
             </Link>
           </header>
-          <div className="w-full h-full flex-grow flex flex-col">
-            {children}
-          </div>
+          <div className="w-full h-full flex-grow">{children}</div>
         </div>
       </body>
     </html>
