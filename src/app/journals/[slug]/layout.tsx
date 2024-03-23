@@ -1,10 +1,9 @@
-import { getMeta } from "@/action/journal.action";
+import { getMeta } from "@/action/journal.actions";
 import JournalHeader from "@/components/journals/JournalHeader";
 import JournalIndex from "@/components/journals/JournalIndex";
 import fetchFile from "@/lib/fetchFile";
-
+import { wait } from "@/lib/util";
 import { notFound } from "next/navigation";
-import { ReactNode } from "react";
 export default async function JounralEntryLayout({
   children,
   params,
@@ -22,15 +21,15 @@ export default async function JounralEntryLayout({
   const meta = await getMeta(params.slug);
   if (!meta) throw notFound();
   return (
-    <div className="">
-      <JournalIndex sections={indexObj}></JournalIndex>
-      <main className="p-2 flex-grow sm:pl-32 xl:pl-56">
+    <>
+      {/* <JournalIndex sections={indexObj}></JournalIndex> */}
+      <main className="p-2 flex-grow sm:pl-32 xl:pl-64">
         <JournalHeader meta={meta}></JournalHeader>
-        <article className="max-w-4xl mx-auto pt-10">
+        <article className="mx-auto pt-5">
           {intro}
           {rest}
         </article>
       </main>
-    </div>
+    </>
   );
 }

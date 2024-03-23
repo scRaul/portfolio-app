@@ -1,6 +1,6 @@
 import { H1 } from "@/components/Text";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="w-full h-full flex justify-center items-center">
       <div className="border-black px-2">

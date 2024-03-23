@@ -41,16 +41,25 @@ export async function encodeMdTOJson() {
     const article = parseMarkdown(filePath, journalsMeta);
 
     //if file dne , add to "journals"
-    if (!journalsObj.journals.includes(file)) {
-      journalsObj.journals.push(file);
-    } else {
-      //else if it does put updated values equal, no need to update json
-      const meta = journalsObj.metadata.find(
-        (meta) => meta.title == article.title
-      );
-      if (meta && meta.updatedAt == article.updatedAt) continue;
+    // if (!journalsObj.journals.includes(file)) {
+    //   journalsObj.journals.push(file);
+    //   journalsObj.metadata.push(article.metadata);
+    // }
+    // const meta = journalsObj.metadata.find(
+    //   (meta) => meta.title == article.title
+    // );
+    // if (meta && meta.updatedAt == article.updatedAt) continue;
+    var fi = 0;
+    for (; fi < journalsObj.journals.length; fi++) {
+      if (journalsObj.journals[fi] == file) break;
     }
-    journalsObj.metadata.push(article.metadata);
+    if (fi == journalsObj.journals.length) {
+      journalsObj.journals.push(file);
+      journalsObj.metadata.push(article.metadata);
+    }
+    const meta = journalsObj.metadata[fi];
+    if (meta.updatedAt == article.metadata.updatedAt) continue;
+    journalsObj.metadata[fi] = article.metadata;
 
     //update file/index.json
     var writeFile = path.join(writePath, file, "index.json");
@@ -61,8 +70,6 @@ export async function encodeMdTOJson() {
       writeFile = path.join(writePath, file, slug + ".json");
       await writeFileContents(writeFile, JSON.stringify(article.section[j]));
     }
-
-    // break;
   }
   await writeFileContents(jPath, JSON.stringify(journalsObj));
 }

@@ -12,14 +12,10 @@ import {
   TextMd,
   LinkMd,
   ListMd,
-} from "@/lib/encoder/parser";
+} from "@/lib/interfaces/markdown";
 import Link from "next/link";
 
-export default async function JounralSection({
-  section,
-}: {
-  section: MDBlock[];
-}) {
+export default function JounralSection({ section }: { section: MDBlock[] }) {
   const nodes = section.map(parseBlock);
   return <section className="pt-1 pl-2 w-full">{nodes}</section>;
 }

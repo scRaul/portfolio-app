@@ -1,5 +1,6 @@
-import { getIntro } from "@/action/journal.action";
+import { getIntro } from "@/action/journal.actions";
 import JournalSection from "@/components/journals/JournalSection";
+import { wait } from "@/lib/util";
 import { notFound } from "next/navigation";
 
 export default async function IntroPage({

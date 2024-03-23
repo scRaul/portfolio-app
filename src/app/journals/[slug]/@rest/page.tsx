@@ -1,6 +1,7 @@
-import { getRest } from "@/action/journal.action";
+import { getRest } from "@/action/journal.actions";
 import JounralSection from "@/components/journals/JournalSection";
-import { MDBlock } from "@/lib/encoder/parser";
+import { MDBlock } from "@/lib/interfaces/markdown";
+import { wait } from "@/lib/util";
 import { notFound } from "next/navigation";
 
 export default async function ResstPage({
@@ -10,7 +11,6 @@ export default async function ResstPage({
 }) {
   const sections = await getRest(params.slug);
   if (!sections) throw notFound();
-
   return (
     <>
       {sections.map((section: MDBlock[], index) => (

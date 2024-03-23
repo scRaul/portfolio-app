@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
           <header
-            className="w-full pr-10 flex gap-2 justify-end pt-5 pb-3 font-mono text-lg bg-blue-500 shadow-lg shadow-[#00000080]"
+            className="w-full pr-10 flex gap-4 justify-end pt-5 pb-3 font-mono text-lg bg-blue-500 shadow-lg shadow-[#00000080]"
             style={{ zIndex: 100 }}
           >
             <Link href="/" className="hover:underline">

@@ -1,9 +1,9 @@
 'use server';
 
-import {cookies} from 'next/headers';
 import journaData from '@/content/journals/journals.json';
 import fetchFile from '@/lib/fetchFile';
-import {MDBlock} from '@/lib/encoder/parser';
+import {MDBlock} from '@/lib/interfaces/markdown';
+
 
 
 export async function getMeta(slug: string) {

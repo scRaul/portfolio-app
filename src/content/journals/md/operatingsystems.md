@@ -1,9 +1,9 @@
 --- 
 title: Operating Systems 
 createdAt: 03/18/2024
-updatedAt: 03/19/2024
+updatedAt: 03/22/2024
 author: Raul Ramirez
-hero: /public/comm_channel.png
+hero: /public/osthumb.png
 content: Journal
 slug: operatingsystems
 published: true

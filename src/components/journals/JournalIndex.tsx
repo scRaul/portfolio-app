@@ -1,4 +1,4 @@
-import { TSectionId } from "@/lib/encoder/parser";
+import { TSectionId } from "@/lib/interfaces/markdown";
 import Link from "next/link";
 
 interface JournalIndexProps {

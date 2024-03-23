@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
@@ -6,90 +5,14 @@ import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import {unified} from 'unified';
 
+import fetchFile from '../fetchFile';
+import {Article, Code, Footnote, HeadingMd, ImgMd, LinkMd, ListMd, MarkdownMetadata, MathBlockMd, MDBlock, TextMd, TSectionId} from '../interfaces/markdown';
 
-interface MarkdownMetadata {
-  [key: string]: any;
-}
-type BlockType = 'code'|'mathblock'|'yaml'|'paragraph'|'image'|'footnote'|
-    'list'|'heading'|'table';
-type ParaType = 'text'|'link'|'footref';
-
-interface Code {
-  lang: string;
-  meta: string;
-  value: string;
-}
-export interface MathBlockMd {
-  meta: string;
-  value: string;
-}
-export interface ParagraphMd {
-  type: ParaType;
-  data: any[];
-}
-interface Footnote {
-  id: string;
-  data: TextMd[];
-}
-interface FootRef {
-  id: string;
-}
-export interface TextMd {
-  style: 'text'|'strong'|'emphasis'|'inlinemath'|'emphasis-strong';
-  value: string
-}
-interface TempLink {
-  title: string;
-  url: string;
-  children?: TextMd[];
-}
-export interface LinkMd {
-  title: string;
-  url: string;
-}
-export interface ImgMd {
-  title: string;
-  url: string;
-  alt: string;
-}
-export interface HeadingMd {
-  depth: number;
-  id: string;
-  text: TextMd[];
-}
-export interface MDBlock {
-  type: BlockType;
-  data: any;
-}
-export interface ListMd {
-  style: 'ol'|'ul';
-  data: any[];
-}
-export type TSectionId = {
-  slug: string,
-  id: string
-};
-export interface Article<T extends MarkdownMetadata> {
-  metadata: T|null;
-  sectionId: TSectionId[];
-  section: MDBlock[][];
-}
-
-
-
-export function readFileContents(filePath: string): string|null {
-  try {
-    return fs.readFileSync(filePath, 'utf8');
-  } catch (error) {
-    console.error('Error reading file:', error);
-    return null;
-  }
-}
 
 export function parseMarkdown<T extends MarkdownMetadata>(
     markdownPath: string, interfaceType: T): Article<T> {
   var article: Article<T> = {metadata: null, sectionId: [], section: []};
-  const markdown = readFileContents(markdownPath);
+  const markdown = fetchFile(markdownPath);
   if (!markdown) return article;
   try {
     const processor = unified()
