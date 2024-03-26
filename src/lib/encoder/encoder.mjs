@@ -65,14 +65,4 @@ export async function encodeMdTOJson() {
   await writeFileContents(jPath, JSON.stringify(journalsObj));
 }
 
-async function testFile() {
-  const file = readFileContents(
-    "src/content/journals/json/networking/index.json"
-  );
-  if (!file) return;
-  const articleJson = await JSON.parse(file);
-  console.log(articleJson.length);
-}
-
 await encodeMdTOJson();
-testFile();
