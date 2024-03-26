@@ -15,7 +15,9 @@ export default async function JounralEntryLayout({
   rest: React.ReactNode;
   params: { slug: string };
 }) {
-  const file = fetchFile(`src/content/journals/json/${params.slug}/index.json`);
+  const file = fetchFile(
+    `src/_content/journals/json/${params.slug}/index.json`
+  );
   if (!file) throw notFound();
   const indexObj = await JSON.parse(file);
   const meta = await getMeta(params.slug);

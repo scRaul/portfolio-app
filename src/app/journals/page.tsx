@@ -2,7 +2,7 @@ import { H2, H4 } from "@/components/Text";
 import JounralEntry, {
   JounralEntryProps,
 } from "@/components/journals/JournalEntry";
-import data from "@/content/journals/journals.json";
+import data from "@/_content/journals/journals.json";
 
 export default async function Journals() {
   const entries: JounralEntryProps[] = [];
