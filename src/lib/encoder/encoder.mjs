@@ -17,12 +17,12 @@ async function writeFileContents(filePath, data) {
   }
 }
 export async function encodeMdTOJson() {
-  const jPath = "src/content/journals/journals.json";
+  const jPath = "src/_content/journals/journals.json";
   const jdata = readFileContents(jPath);
   const journalsObj = await JSON.parse(jdata);
 
-  const folderPath = "src/content/journals/md";
-  const writePath = "src/content/journals/json";
+  const folderPath = "src/_content/journals/md";
+  const writePath = "src/_content/journals/json";
   const files = fs.readdirSync(folderPath);
   // Extract file names without extensions
   const fileNames = files.map((file) => path.parse(file).name);
@@ -40,15 +40,6 @@ export async function encodeMdTOJson() {
     };
     const article = parseMarkdown(filePath, journalsMeta);
 
-    //if file dne , add to "journals"
-    // if (!journalsObj.journals.includes(file)) {
-    //   journalsObj.journals.push(file);
-    //   journalsObj.metadata.push(article.metadata);
-    // }
-    // const meta = journalsObj.metadata.find(
-    //   (meta) => meta.title == article.title
-    // );
-    // if (meta && meta.updatedAt == article.updatedAt) continue;
     var fi = 0;
     for (; fi < journalsObj.journals.length; fi++) {
       if (journalsObj.journals[fi] == file) break;
