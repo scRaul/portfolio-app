@@ -1,31 +1,19 @@
-import { H2, H4 } from "@/components/Text";
-import JounralEntry, {
-  JounralEntryProps,
-} from "@/components/journals/JournalEntry";
 import data from "@/_content/journals/journals.json";
-
-export default async function Journals() {
-  const entries: JounralEntryProps[] = [];
-
-  for (let i = 0; i < data.journals.length; i++) {
-    entries.push({ slug: data.journals[i], metadata: data.metadata[i] });
-  }
-
+import { H1 } from "@/components/Text";
+import JounralEntry from "@/components/journals/JournalEntry";
+export default async function Page() {
+  const journals = data.metadata;
   return (
-    <>
-      <header className="w-full p-1 pt-5 border-black shadow-sm shadow-black">
-        <H2 className="whitespace-break-spaces font-bold uppercase w-fit mx-auto">
-          Computer Science Entries
-        </H2>
-        <H4 className="whitespace-break-spaces font-medium p-1 uppercase w-fit mx-auto">
-          notes on computer sceince and related topics
-        </H4>
+    <main className="w-full h-full">
+      <header className="border-black px-2 w-fit mx-auto">
+        <H1 className="font-bold pt-5">Computer Journals</H1>
+        <p>A place to keep my computer science and related content</p>
       </header>
-      <main className="flex w-full p-10 flex-col md:flex-row flex-wrap">
-        {entries.map((entry, index) => (
-          <JounralEntry key={index} {...entry} />
+      <section className="flex flex-wrap  pt-10 justify-center">
+        {journals.map((entry, index) => (
+          <JounralEntry metadata={entry} key={index}></JounralEntry>
         ))}
-      </main>
-    </>
+      </section>
+    </main>
   );
 }

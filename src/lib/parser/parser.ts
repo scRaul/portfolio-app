@@ -8,18 +8,30 @@ import {unified} from 'unified';
 import fetchFile from '../fetchFile';
 import {Article, Code, Footnote, HeadingMd, ImgMd, LinkMd, ListMd, MarkdownMetadata, MathBlockMd, MDBlock, TextMd, TSectionId} from '../interfaces/markdown';
 
+const processor = unified()
+                      .use(remarkParse)
+                      .use(remarkFrontmatter)
+                      .use(remarkGfm)
+                      .use(remarkMath)
 
+export function parseMeta<T extends MarkdownMetadata>(
+    markdownPath: string, interfaceType: T): T {
+  const markdown = fetchFile(markdownPath);
+  if (!markdown) return interfaceType;
+  const tree = processor.parse(markdown);
+  const yamlNode = tree.children[0];
+  if (yamlNode.type == 'yaml') {
+    const yamlContent = yamlNode.value;
+    return yaml.load(yamlContent) as T;
+  }
+  return interfaceType;
+};
 export function parseMarkdown<T extends MarkdownMetadata>(
     markdownPath: string, interfaceType: T): Article<T> {
   var article: Article<T> = {metadata: null, sectionId: [], section: []};
   const markdown = fetchFile(markdownPath);
   if (!markdown) return article;
   try {
-    const processor = unified()
-                          .use(remarkParse)
-                          .use(remarkFrontmatter)
-                          .use(remarkGfm)
-                          .use(remarkMath)
     var blocks: MDBlock[] = [];
     const sectionId: TSectionId[] = [];
     const section: MDBlock[][] = [];

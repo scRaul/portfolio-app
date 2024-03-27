@@ -27,13 +27,13 @@ export default function RootLayout({
             <Link href="/" className="hover:underline">
               {"Home"}
             </Link>
-            <Link href="/journals" className="hover:underline">
+            <Link href="/projects" className="hover:underline">
               {"Projects"}
             </Link>
             <Link href="/journals" className="hover:underline">
               {"Journals"}
             </Link>
-            <Link href="/journals" className="hover:underline">
+            <Link href="/blog" className="hover:underline">
               {"Blog"}
             </Link>
           </header>

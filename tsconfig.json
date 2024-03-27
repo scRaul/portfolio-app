@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/lib/encoder/parser.ts",
+    "src/lib/parser/parser.ts",
     "src/lib/encoder/encoder.js",
     "src/lib/encoder/encoder.mjs"
   ],

@@ -1,20 +1,29 @@
-import { TSectionId } from "@/lib/interfaces/markdown";
 import Link from "next/link";
 
 interface JournalIndexProps {
-  sections: TSectionId[];
+  slug: string;
+  pages: string[];
 }
 
 export default function JournalIndex(props: JournalIndexProps) {
+  const intro = props.pages.splice(0, 1)[0];
+  const className =
+    "whitespace-break-spaces hover:text-blue-600 cursor-pointer font-medium tracking-tighter my-2 leading-tight block";
   return (
-    <div className="fixed  hidden sm:block overflow-auto h-screen top-0 pt-20 w-32 xl:w-52 px-2 shadow-md shadow-black">
-      {props.sections.map((section, index) => (
+    <div className="hidden sm:block px-2 border-r-2">
+      <Link href={`/journals/${props.slug}`} className={className}>
+        Introduction
+      </Link>
+      {props.pages.map((page, index) => (
         <Link
-          href={`#${section.id}`}
+          href={`/journals/${props.slug}/${page
+            .split(" ")
+            .join("-")
+            .toLowerCase()}`}
           key={index}
-          className="whitespace-break-spaces hover:text-blue-600 cursor-pointer font-medium tracking-tighter my-2 leading-tight block"
+          className={className}
         >
-          {section.slug}
+          {page}
         </Link>
       ))}
     </div>

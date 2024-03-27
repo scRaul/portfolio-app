@@ -1,7 +1,11 @@
 import JounralSection from "@/components/journals/JournalSection";
 import { parseMarkdown } from "@/lib/parser/parser";
-export default await function Page({ params }: { params: { slug: string } }) {
-  const file = `src/_content/journals/${params.slug}/intro.md`;
+export default function Page({
+  params,
+}: {
+  params: { slug: string; page: string };
+}) {
+  const file = `src/_content/journals/${params.slug}/${params.page}.md`;
   const article = parseMarkdown(file, { title: "", updated: "", layout: "" });
   return (
     <article>
@@ -10,4 +14,4 @@ export default await function Page({ params }: { params: { slug: string } }) {
       ))}
     </article>
   );
-};
+}
